@@ -1,2 +1,2 @@
-# UVaOnlineJudgeSolutions
-Solutions to UVa problems
+# Competitive Programming Solutions
+Solutions to CP problems
