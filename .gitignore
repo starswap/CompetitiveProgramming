@@ -3,3 +3,5 @@
 .replit
 replit.nix
 .ccls-cache/*
+*/input.txt
+*/output.txt
