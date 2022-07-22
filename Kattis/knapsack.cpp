@@ -1,4 +1,4 @@
-//Optimised to 0.78 secs
+//Optimised to 0.74 secs
 
 //offers a 0.04 sec optimisation
 #pragma GCC optimize("Ofast")
