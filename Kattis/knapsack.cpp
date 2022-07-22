@@ -1,5 +1,10 @@
 //Optimised to 0.78 secs
 
+//offers a 0.04 sec optimisation
+#pragma GCC optimize("Ofast")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma")
+#pragma GCC optimize("unroll-loops")
+
 #include <bits/stdc++.h>
 using namespace std;
 typedef vector<vector<int>> vvi;
@@ -9,7 +14,7 @@ typedef vector<int> vi;
 int C,n;
 int V[2000];
 int W[2000];
-int dp[2001][2001]; //dp(i,remW)
+int dp[2001][2001]; //dp(i,remW) //C array gains 0.24
 int path[2001];
 int k;
 
@@ -39,6 +44,7 @@ inline void trace_path(int i, int remW) {
 
 
 int main() {
+  //gains 0.08
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   
