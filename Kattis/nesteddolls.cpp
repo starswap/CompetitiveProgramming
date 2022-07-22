@@ -1,3 +1,7 @@
+//Greedy with PQ method: Sort in order to maintain the invariant that:
+// "For any doll, all dolls after it in sequence cannot be nested in it" and therefore "all dolls that can be nested in a given doll (and possibly some that can't) come before it in sequence".
+// Then iterate linearly over the dolls and for each one nest the largest one that is available to be nested inside it; we use an Order Statistics Tree to achieve this goal.
+
 #include <bits/stdc++.h>
 #include <bits/extc++.h>
 using namespace std;
