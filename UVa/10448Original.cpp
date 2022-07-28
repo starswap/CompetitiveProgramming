@@ -1,25 +1,23 @@
-//This version is optimised to be faster on the theoretical maximum input size, but is actually slower on the judge because it is slower on smaller input sizes, so slower on average.(for 20 test cases at maximum I get around 10.5 secs with this method vs 15 secs with the dynamic vectors version). Use dynamic vectors to get an overall speed improvement on average.
+//ORiginal which is faster on the judge but slower (by 5 seconds) on max input. Still AC.
 
 #include <bits/stdc++.h>
 using namespace std;
 
 vector<vector<int>> AL;
-int costs[50][50];
-int maxCoin;
-int coins[50];
-int dp[51][100001];
+vector<vector<int>> costs;
+vector<int> coins;
+vector<vector<int>> dp;
 
 pair<int,int> dfs(int u, int t,int costSoFar,int p,int numEdges) {
+  int res;
   if (u == t) return make_pair(costSoFar,numEdges);
   for (int v : AL[u]) {
     if (p != v) {
-      pair<int,int> res = dfs(v,t,costSoFar + costs[u][v],u,numEdges+1);
-      if (res.first != -1) {
-        if (p != -1) {
-          coins[maxCoin] = (2*costs[p][u]);
-          maxCoin++;
-        }
-        return res;
+       auto [cost,edges] = dfs(v,t,costSoFar + costs[u][v],u,numEdges+1);
+       if (cost != -1) {
+         if (p != -1)
+           coins.push_back(2*costs[p][u]);
+         return make_pair(cost,edges);
       }
     }
   }
@@ -32,7 +30,7 @@ pair<int,int> dfs(int u, int t,int costSoFar,int p,int numEdges) {
 int coinChange(int i, int remC) {
   if (remC == 0) return 0;
   if (remC < 0) return -1;
-  if (i >= maxCoin) return -1;
+  if (i >= coins.size()) return -1;
   if (dp[i][remC] != -2) return dp[i][remC];
   int without = coinChange(i+1,remC);
   int with = coinChange(i,remC-coins[i]);
@@ -47,14 +45,13 @@ int coinChange(int i, int remC) {
 
 
 int main() {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
   
   int N; scanf("%d",&N);  
   while (N--) {
     int n,m;
     scanf("%d %d",&n,&m);
     AL.assign(n,vector<int>(0));
+    costs.assign(n,vector<int>(n,-1));
     for (int i=0;i<m;++i) {
       int u,v,c; scanf("%d %d %d",&u,&v,&c);
       u--; v--; 
@@ -70,15 +67,11 @@ int main() {
       scanf("%d %d %d",&u,&v,&c);
       u--;
       v--;
-      maxCoin = 0;
+      coins.clear();
       auto [cost,numEdges] = dfs(u,v,0,-1,0);
       int target = c - cost;
       
-      for (int i=0;i<51;++i) {
-        for (int j=0;j<100001;++j) {
-          dp[i][j] = -2;
-        } 
-      }
+      dp.assign(n,vector<int>(100000,-2));
       
       int res = coinChange(0,target);
       if (res == -1)
