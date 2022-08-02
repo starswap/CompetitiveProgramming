@@ -18,7 +18,7 @@ inline int cost(Point a, Point b) {
 
 int maX,maxY,nBeepers;
 vector<Point> points;
-int dp[1024][10]; //dp[alreadyVisited][u] // max is 10 beepers
+int dp[1024][11]; //dp[alreadyVisited][u] // max is 10 beepers
 
 int tsp(int visitedBM, int u) {
   if (visitedBM == 0) //all visited
