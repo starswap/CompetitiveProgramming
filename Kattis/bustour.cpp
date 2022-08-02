@@ -141,6 +141,7 @@ int main() {
 
     //Get answer and output
     int ans = recursiveSolve(0,0,1);
+    //(A slightly easier way of generating this is to iterate over all integers/bitmasks up from 0 to the max bitmask, then skip any bitmasks which don't have exactly nHotels/2 set bits. The set bits can be counted with "__builtin_popcount".) However this would be 2^n; there is no possibility for early pruning. Nevertheless seeing as you are just skipping some of them it doesn't really matter as it's not multiply in that case for the complexity.
     
     printf("Case %d: %d\n",caseNo,ans);
     ++caseNo;
