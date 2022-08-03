@@ -1,11 +1,19 @@
 //Use C++20 to run this code
 
+//My solution:
+//High constant O(NMlogM) - finishes in 2.4 secs
+//Complicated to code
+//Considers each model separately
+//See runwayRecommended for the recomended solution.
+
 //Method:
 //   - It never matters which outfit each model is changed into because a change is a change. The fact that the first change is free could jeopardise this but it doesn't because when a model is changed for the first time they become the same as all other models that have already been changed. 
 //   - Therefore, at each round, if a model can stay the same, keep themt the same. If they have to change, allocate them to any of the new outifts.  
 //   - However we have to explicitly deal with the case where two different models could both be kept the same, i.e. the case 1 1 -> 1 3 for example. In this case we always want to change a new model if we can as the first change is free, so if we make sure to consider all of the new models for changes first (i.e. all of the old models for staying the same first) we will get an optimum.
 //   - Track each change and the answer will be the number of changes made in total, minus the number of models changed. 
- 
+
+
+
 
 #include <bits/stdc++.h>
 using namespace std;
