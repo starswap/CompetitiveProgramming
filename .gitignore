@@ -13,3 +13,5 @@ output.txt
 */output (*).txt
 .breakpoints
 *input.txt
+input*.txt
+output*.txt

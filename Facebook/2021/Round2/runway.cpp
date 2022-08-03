@@ -21,7 +21,16 @@ int main() {
     int changes = 0; //total number of changes required
     vector<multiset<int>> outfits(nRounds+1);  //(for each round, the outfits that need to be displayed)
     vector<int> modelOutfits(mModels); //What outfit each model is currently wearing
-    multimap<int,int,greater<int>> indices; //maps the number of times each model has changed to their index, enabling us to iterate over the models in order of number of changes decreasing, so that the models which have been changed the most already get the first "say" to not be changed again. 
+    vector<int> timesChanged(mModels,0);
+
+    auto comparator = [&](int modelA, int modelB) {
+      if (timesChanged[modelA] == timesChanged[modelB])
+        return modelA < modelB;
+      else
+        return timesChanged[modelA] > timesChanged[modelB];
+    };
+    
+    set<int,decltype(comparator)> indices(comparator); //Sorted set of model indices by number of times they have changed. 
 
     //Read input
     for (int j=0;j<=nRounds;++j) {
@@ -31,29 +40,30 @@ int main() {
         outfits[j].insert(style); //Each round's outfits to dispaly
         if (j == 0) {//prior to the first round - what are they arriving in?
           modelOutfits[i] = style;
-          indices.emplace(0,i); //We do this initialisation here as we only want to do it once. (each model has been changed 0 times initially)
+          indices.insert(i); //We do this initialisation here as we only want to do it once. (each model has been changed 0 times initially)
         }
       }
     }
 
     //Go through all of the rounds
     for (int j=0;j<nRounds;++j) {
-      multimap<int,int,greater<int>> indices2; //Rebuild the indices array on each round and "move" it back afterwards so we don't mutate something we are iterating over.
       vector<bool> thisChanged(mModels,false); //Which models have we changed this round? So we know which ones need new outfits
-      for (auto [timesChanged, i] : indices) { //iterate over models in order of previous changes increasing
+      for (auto it=indices.begin();it!=indices.end();) { //iterate over models in order of previous changes increasing
+        int i = *it;
         if (outfits[j+1].contains(modelOutfits[i])) { //no need to change the model as their style is needed in the next round
           outfits[j+1].erase(outfits[j+1].find(modelOutfits[i])); //Remove so we don't double count (i.e. 1 1 -> 1 3 requires 1 change)
-          indices2.emplace(timesChanged,i); //no change to this
+          ++it;
         }
         else { //need to change this model to something; don't care what.
           thisChanged[i] = true; //we have changed them once this round
+          timesChanged[i] += 1;
+          ++it;
+          indices.erase(prev(it));
+          indices.insert(i);
           changes += 1; //total changes 
-          indices2.emplace(timesChanged+1,i); //update the ordering in which we iterate (could probably be done via a comparator-based dynamically updating set with no copies)
         }
       }
-      
-      indices = indices2; //move it over/
-      
+            
       auto it = outfits[j+1].begin(); //Will be used to iterate over all of the outfits we are changing /into/; these are the only ones left in outfits[j+1].
       for (int i=0;i<mModels;++i) { //for every model
         if (thisChanged[i]) { //if we needed to change them this time
@@ -65,8 +75,8 @@ int main() {
 
     //Answer is total number of changes minus 1 for each model we changed; first change free.
     ans = changes;
-    for (auto [timesChanged, i] : indices) {
-      ans -= (timesChanged > 0);
+    for (int i : indices) {
+      ans -= (timesChanged[i] > 0);
     }
     printf("Case #%d: %d\n",t,ans);
   }
