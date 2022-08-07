@@ -103,39 +103,40 @@ void solveFor100(const vector<int> &indicesOuter) {
 
 void solveFor1000(vector<int> indices) {
   while (indices.size() > 100) {
-    int total1 = 0;
-    int total2 = 1;
-    unordered_set<int> subset1;
-    unordered_set<int> subset2;
+    int total = 0;
+    unordered_set<int> subset;
 
-    while (total1 != total2) {
-      total1 = 0;
-      total2 = 0;
-      subset1.clear();
-      subset2.clear();
+    unordered_map<int,unordered_set<int>> prevSums; //uses a lot of memory.
+    while (1) {
+      total = 0;
+
+      subset.clear();
+
       for (int i = 0; i < indices.size(); ++i) {
-        if (rand() % 2) { // v2 in the range 1 to 1000
-          subset1.insert(indices[i]);
-          total1 += stringLengths[indices[i] - 1];
+        int randomChoice = rand() % 2;
+        if (randomChoice == 1) { // v2 in the range 1 to 1000
+          subset.insert(indices[i]);
+          total += stringLengths[indices[i] - 1];
         }
       }
-      for (int i = 0; i < indices.size(); ++i) {
-        if (rand() % 2) { // v2 in the range 1 to 1000
-          subset2.insert(indices[i]);
-          total2 += stringLengths[indices[i] - 1];
-        }
+      
+      if (prevSums.contains(total)) {
+        break;
       }
+      else {
+        prevSums[total] = subset;
+      }      
     }
 
+    unordered_set<int> subset2 = prevSums[total];
+    
     vector<int> indices2 = indices;
     indices.clear();
 
     for (int item : indices2) {
-      if (subset1.contains(item) &&
-          !subset2.contains(item)) { // remove if in both
+      if (subset.contains(item) && !subset2.contains(item)) { // remove if in both
         thread1.insert(item);
-      } else if (subset2.contains(item) &&
-                 !subset1.contains(item)) { // remove if in both
+      } else if (subset2.contains(item) && !subset.contains(item)) { // remove if in both
         thread2.insert(item);
       } else { // unused; we need to consider it again.
         indices.push_back(item);
