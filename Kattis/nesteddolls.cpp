@@ -1,4 +1,4 @@
-//I think a normal BST would be fine here instead of an OST but either way it does work.
+// We need an OST I think not just a BST since we need to be able to check where a key /would go/ even when it is not already present. 
 
 //Greedy with PQ method: Sort in order to maintain the invariant that:
 // "For any doll, all dolls after it in sequence cannot be nested in it" and therefore "all dolls that can be nested in a given doll (and possibly some that can't) come before it in sequence".

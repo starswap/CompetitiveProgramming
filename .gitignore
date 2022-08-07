@@ -15,3 +15,4 @@ output.txt
 *input.txt
 input*.txt
 output*.txt
+output*

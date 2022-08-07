@@ -1,4 +1,4 @@
-//I now realise you can do this one with normal BST as well ;((((())))) using iterators.- see recycling.
+//We need PBDS so we can check the one before a key that is not present.
 
 //Variant of Interval covering with multiple tracks -> Use standard "sort by endpoint" technique, but how do we allocate to each track?
 //Maintain OST (GNU PBDS) of the tracks' finish time (when they start being free) and allocate each new task, if it can be allocated, to the latest-free track which can accommodate it.

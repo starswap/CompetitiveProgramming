@@ -54,7 +54,8 @@ int main() {
       total = 0;
       for (int c=0;c<C;++c) {
         if (spacesAbove[c] != 0 || rowK[c] == false) { //Can we push into this space? (NOTE: TCs a little weak; don't require rowK[c] == false here.)
-          //Only if no gridlock or gridlock above and this space is empty. 
+          //...  Only if no gridlock or gridlock above and this space is empty. 
+          
           if (rowK[c]) --spacesAbove[c]; //pushed up a car so one fewer empty space. 
           if (K+shift >= R) //Create new empty spaces from the bottom
             rowK[c] = 0;
@@ -73,7 +74,8 @@ int main() {
       total = 0;
       for (int c=0;c<C;++c) {
         if (spacesBelow[c] > 0 || rowK[c] == false) { //Can we push into this space?
-          //Only if no gridlock or gridlock below and this space is empty.
+          //...Only if no gridlock or gridlock below and this space is empty.
+          
           if (rowK[c]) --spacesBelow[c]; //pushed down a car
           if (K-shift < 0) 
             rowK[c] = 0;
