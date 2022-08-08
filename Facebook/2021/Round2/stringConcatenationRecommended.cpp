@@ -1,10 +1,6 @@
 // Using the method recommended in "Solution"
 // Needs std=c++20
 
-
-// Try optimising even just the basic one, then the better ones one at a time.
-// Check video points to learn
-
 #include <bits/extc++.h>
 #include <bits/stdc++.h>
 
@@ -185,6 +181,9 @@ void solveFor1000(const vector<int> &indicesOuter) {
 
 void solveFor200000(const vector<int> &indices) {
   //Solves the problem for N up to the maximum bound of 200000
+  //We do this by removing all pairs of strings with the same length
+  //Then removing all pairs of pairs of strings with the same total length (a+b = c+d)
+  //You could also remove all sets (a=b+c) but there is no need as it is fast enough anyway.
     // indices - vector of indices into stringLengths, as usual.
     // O(nlog^2 n) -> double loop with spacing is nlogn; harmonic - cost of logn for each removal from the OST.
 
