@@ -4,6 +4,77 @@
 using namespace __gnu_pbds;
 using namespace std;
 
+template <class T>
+class SegmentTree {
+  public:
+    SegmentTree(const vector<T> &A) {
+      n = A.size();
+      st.assign(4*A.size(),-1);
+      lazy.assign(4*A.size(),false);
+      lazyDelta.assign(4*A.size(),0);
+      build(A,0,A.size()-1,1);
+    }
+
+    void rangeUpdate(int L, int R, int deltaV) {
+      rangeUpdate(L,R,deltaV,1,0,n-1);
+    }
+
+    T allQuery() {
+      return st[1];
+    }
+
+  private:
+    int n;
+    vector<T> st;
+    vector<bool> lazy;
+    vector<T> lazyDelta;
+
+    int l(int idx) {return idx*2;}
+    int r(int idx) {return idx*2+1;}
+
+    void build(const vector<T> &A,int L, int R, int S) {
+      if (L == R)
+        st[S] = A[L];
+      else {
+        build(A,L,(L+R)/2,l(S));
+        build(A,(L+R)/2+1,R,r(S));
+        st[S] = min(st[l(S)],st[r(S)]);
+      }
+    }
+
+    void rangeUpdate(int L, int R, int deltaV, int S, int aL, int aR) {  
+      if (R < L)
+        return;
+      
+      if (lazy[S]) {
+        lazy[S] = false;
+        if (aL != aR)  {
+          lazy[l(S)] = true;
+          lazy[r(S)] = true;
+          lazyDelta[l(S)] = lazyDelta[S];
+          lazyDelta[r(S)] = lazyDelta[S];
+          st[l(S)] += lazyDelta[S];
+          st[r(S)] += lazyDelta[S];
+        }
+        lazyDelta[S] = 0;
+      }        
+      if (aL >= L && aR <= R) {//update range inside updated range
+        st[S] += deltaV;
+        lazy[S] = true;
+        lazyDelta[S] = deltaV;
+      }
+      else {
+        if ((aL+aR)/2 >= L && aL <= R)
+          rangeUpdate(L,R,deltaV,l(S),aL,(aL+aR)/2);
+        if ((aL+aR)/2+1 <= R && aR >= L)
+          rangeUpdate(L,R,deltaV,r(S),(aL+aR)/2+1,aR);
+        st[S] = min(st[l(S)],st[r(S)]);
+      }
+    }
+};
+
+
+
 // Order Statistics Tree
 typedef tree<int, null_type, less<int>, rb_tree_tag,
              tree_order_statistics_node_update>
@@ -100,14 +171,16 @@ int main() {
       shiftCosts[K+1+shift] = (shift+total);
     }
 
-    int M_sum = 0;
+    long long M_sum = 0;
     int prevGridlock, currGridlock, prevGridlock2;
+
+    SegmentTree<int> shiftCostsSegTree(shiftCosts);
     
     for (auto [r,c] : spells) {
       int shift = r+1;
       
       if (garage[r][c] == true) { //Wong is removing a car
-        shiftCosts[shift] -= 1;  
+        shiftCostsSegTree.rangeUpdate(shift,shift,-1);  
         
         if (cars[c].find_by_order(K) != cars[c].end()) { //gridlock occurs one later now than it did before
           prevGridlock = *cars[c].find_by_order(K); //shift at which gridlock currently occurs or end...
@@ -127,22 +200,26 @@ int main() {
         }
         else {currGridlock = *cars[c].find_by_order(K);}
 
-        for (int g=prevGridlock+1;g<currGridlock;++g) {
-          shiftCosts[g] -= 1;
-        }
+        shiftCostsSegTree.rangeUpdate(prevGridlock+1,currGridlock-1,-1);
+        // for (int g=prevGridlock+1;g<currGridlock;++g) {
+        //   shiftCosts[g] -= 1;
+        // }
         
         if (cars[c].find_by_order(cars[c].size()-(R-K)) == cars[c].end()) { //doesn't occur now.
           currGridlock = -1;
         }
         else {currGridlock = *cars[c].find_by_order(cars[c].size()-(R-K));}
 
-        for (int g=currGridlock+1;g<prevGridlock2;++g) {
-          shiftCosts[g] -= 1;
-        }
+        shiftCostsSegTree.rangeUpdate(currGridlock+1,prevGridlock2-1,-1);
+        // for (int g=currGridlock+1;g<prevGridlock2;++g) {
+        //   shiftCosts[g] -= 1;
+        // }
         
       }
       else { //Wong is adding a car
-        shiftCosts[shift] += 1;  
+        shiftCostsSegTree.rangeUpdate(shift,shift,1);  
+        
+        // shiftCosts[shift] += 1;  
         if (cars[c].find_by_order(K) == cars[c].end()) { //gridlock occurs one later now than it did before
           prevGridlock = shiftCosts.size();
         }
@@ -164,9 +241,11 @@ int main() {
         else
           currGridlock = *cars[c].find_by_order(K); //shift at which gridlock currently occurs or end...
 
-        for (int g=currGridlock+1;g<prevGridlock;++g) {
-          shiftCosts[g] += 1;
-        }
+        shiftCostsSegTree.rangeUpdate(currGridlock+1,prevGridlock-1,1);
+
+        // for (int g=currGridlock+1;g<prevGridlock;++g) {
+        //   shiftCosts[g] += 1;
+        // }
 
         if (cars[c].find_by_order(cars[c].size()-(R-K)) == cars[c].end()) { //gridlock occurs one later now than it did before
           currGridlock = -1;
@@ -174,18 +253,20 @@ int main() {
         else
           currGridlock = *cars[c].find_by_order(cars[c].size()-(R-K)); //shift at which gridlock currently occurs or end...
 
-        for (int g=prevGridlock2+1;g<currGridlock;++g) {
-          shiftCosts[g] += 1;
-        }
+        shiftCostsSegTree.rangeUpdate(prevGridlock2+1,currGridlock-1,1);
+
+        // for (int g=prevGridlock2+1;g<currGridlock;++g) {
+        //   shiftCosts[g] += 1;
+        // }
       
       }
       garage[r][c] = !garage[r][c];
 
-      M_sum += *min_element(shiftCosts.begin(),shiftCosts.end());
+      M_sum += shiftCostsSegTree.allQuery();
       
     }
     
-    printf("Case #%d: %d\n",t,M_sum);
+    printf("Case #%d: %lld\n",t,M_sum);
   }
   
   return 0;
