@@ -4,12 +4,14 @@
 using namespace __gnu_pbds;
 using namespace std;
 
+
+
 template <class T>
 class SegmentTree {
   public:
     SegmentTree(const vector<T> &A) {
       n = A.size();
-      st.assign(4*A.size(),-1);
+      st.assign(4*A.size(),10000000);
       lazy.assign(4*A.size(),false);
       lazyDelta.assign(4*A.size(),0);
       build(A,0,A.size()-1,1);
