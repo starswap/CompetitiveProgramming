@@ -14,9 +14,24 @@
 //           If we store an ordered set of the cars we can find out in log n which car is the Kth (order statistics tree).
 //           Adding or removing a car will cause all shifts between the shifts where gridlock previously occurred and now occurs to either have one more car, or have one fewer car, and this can be dealt with using the segment tree range update operation, also in log n.
 //    5. So we iterate over the spells and maintain the segment tree (over all shifts), and C OSTs (one for each column, with all cars in the column), of which we only need to update one OST and the ST each time. We then get the minimum cost over all possible shifts from the segment tree in log n, and add this to the M sum to progressively compute the final answer.
-// This has complexity: O(RC + S(log RC)) though this has a non-negligible constant. 
+// This has complexity: O(RC + S(log R)) though this has a non-negligible constant. 
 
 
+//Possible changes:
+//    - C shifts - it's min(R,C) effectively - no worries if C is much greater as you only need to shift R+2 times in this method here, so just do best of both worlds. x
+//    - Treat all cars initially in the garage as queries - this would worsen the complexity to O( (RC + S) logR) but it still owrks.
+//    - Can avoid the off by one errors by removing all cars that are in the right column, then readding with new contributions perhaps.
+//    - Skip the OST  - Maintain column by column iterators so no need to find before and after eacht time - no need to use OST either because each change is by one car to an adjacent car only
+//    - Recognise the "valid range".
+//    - Definitely use more subroutines to reduce confusion levels.
+
+
+//TtoR
+// - SegTree remember to combine + contributions parent to child.
+// - Big problems - double counting (or counting when we don't want to - still a car there)
+// - Look for double counting from the beginning
+// - OST may be able to be replaced by set::iterators.
+// - You can store C++ stuff like iterators in C style arrays.
 
 #include <bits/stdc++.h>
 #include <bits/extc++.h> //For order statistics tree
