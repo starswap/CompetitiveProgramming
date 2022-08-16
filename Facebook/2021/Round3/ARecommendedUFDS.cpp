@@ -117,3 +117,4 @@ int main() {
     printf("Case #%d: %lld\n",t,solve(M, N));
   }
 }
+
