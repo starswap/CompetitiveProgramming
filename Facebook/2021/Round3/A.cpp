@@ -21,6 +21,8 @@
     // S_i = N(N-1)/2 + D.rangeSum(1,N) //sum of all back edges
     // Do product and mod
 
+// O(N + MlogN)
+
 #include <bits/stdc++.h>
 
 using namespace std;
