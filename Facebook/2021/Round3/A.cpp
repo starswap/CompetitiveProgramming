@@ -1,3 +1,26 @@
+// Initially there are directed edges between each node and all nodes with a lower value than it (n(n-1)/2) of these overall.
+// Adding a pairing means that all nodes between those two nodes can now receive orders from each all of the others in that group, so there are backwards edges between every one in that group. This adds an additional 0 edges to the most senior, 1 to the next most, then 2, 3 and so on.
+// Now anyone in that group can receive orders from anyone else 
+// If you connect two employees, at least one of which is already part of a cycle, you simply get a bigger cycle with everyone that could already be reached by the two paired employees
+// A given employee can only be part of 1 cycle, because if they are part of 2 then in reality this is actually just one bigger cycle.
+// We just need to count the number of back edges allowing a less senior person to give orders to a more senior person and then add on N(N-1)/2 for the original front edges.
+// One way of doing this is to:
+
+  // Maintain 3 segment trees: Start, End, Delta, indexed by employee number.
+  // Start holds the number of the most senior employee in the reporting group that this employee is a member of
+  // End holds the number of the least senior employee in the reporting group that this employee is a member of
+  // Delta holds the number of back edges that have this employee as the least senior employee who is getting reports from a more senior employee
+  // For each pairing operation where A is the lower numbered employee and B is the higher numbered employee
+    // A = min(A,S[A]) // A is in a reporting group with employees as senior as Start[A], so these will join the new bigger group after this merge.
+    // B = max(B,E[B]) // B is in a reporting group with employees as low as End[B] (this must be lower than End[A] as there are no overlaps)
+    // The reporting group now goes from A to B
+    // D.setRangeIncremental(A,B,0)  //overwrite existing deltas in such a way that we say that the number of back edges is 0 for the most senior person in this group, then 1, then 2, then 3, which can be done in log time with lazy propagation (overwrite any previous info to avoid issues with for example 2-3 then 1-4)
+      // This operation does the following: from this example array, [1,5,6,2,10,4,7] setRangeIncremental(start=2,end=5,firstvalue=19) does: [1,5,19,20,21,22,7]
+    // S.setRange(A,B,A) //The new reporting group for all of these employees starts at A and ends at B
+    // E.setRange(A,B,B)
+    // S_i = N(N-1)/2 + D.rangeSum(1,N) //sum of all back edges
+    // Do product and mod
+
 #include <bits/stdc++.h>
 
 using namespace std;
