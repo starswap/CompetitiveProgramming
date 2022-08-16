@@ -81,8 +81,6 @@ class UFDS {
 };
 
 
-
-
 long long solve(int M, int N) {
   
   long long S_i = static_cast<long long>(N)*static_cast<long long>(N-1)/2;
