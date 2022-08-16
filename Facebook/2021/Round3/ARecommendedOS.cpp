@@ -3,6 +3,12 @@
   // A higher constant factor due to either the use of the OST rather than the ST, or the use of additional log operations
   // Initial building in Nlogn rather than n.
 
+//TtoR from checking their solution:
+  // cin >> a >> b;
+  // can use set::lower_bound instead of OST.
+  // can actually do it by erasing and readding, substracting set size as necessary, because each group is only deleted at most once, and there are at most N+M groups that get seen throughout the whole process.  
+
+
 #include <bits/stdc++.h>
 #include <bits/extc++.h>
 

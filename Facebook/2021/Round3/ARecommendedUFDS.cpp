@@ -46,12 +46,13 @@ class UFDS {
       return (findSet(i) == findSet(j));
     }
     void unionSet(int i, int j) {
+      if (isSameSet(i,j)) return;
       i = findSet(i);
       j = findSet(j);
       if (rank[i] > rank[j]) swap(i,j);
       //rank[i] <= rank[j]
+      if (rank[i] == rank[j]) ++rank[j];
       p[i] = j;
-      ++rank[j];
       setSize[j] += setSize[i];
       minValue[j] = min(minValue[j],minValue[i]);
     } 
