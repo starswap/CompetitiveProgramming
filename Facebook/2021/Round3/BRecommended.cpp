@@ -1,18 +1,25 @@
-#include <bits/stdc++.h>
+#include <vector>
+#include <array>
+#include <tuple>
+#include <iostream>
+#include <algorithm>
+#include <set>
 
 using namespace std;
 
 const int INF = 1e9+10;
 const int MOD = 1e9+7;
 
+
+template <int n>
 class SegmentTree {
   public:
-    SegmentTree(int n):n(n) { 
-      st.assign(4*n,0); 
-      lazy.assign(4*n,false); 
+    SegmentTree() { 
+      st.fill(0); 
+      lazy.fill(false); 
     }
 
-    long long rangeQuery(int L, int R) {
+    int rangeQuery(int L, int R) {
       return rangeQuery(L,R,0,n-1,1);
     }
 
@@ -21,9 +28,8 @@ class SegmentTree {
     }
 
   protected:
-    int n; 
-    vector<long long> st; 
-    vector<bool> lazy; 
+    array<int,4*n> st; 
+    array<bool,4*n> lazy; 
 
     int l(int idx) {return idx<<1;} 
     int r(int idx) {return (idx<<1)+1;} 
@@ -38,7 +44,7 @@ class SegmentTree {
       }
     }
 
-    long long rangeQuery(int L, int R, int aL, int aR, int S) {   
+    int rangeQuery(int L, int R, int aL, int aR, int S) {   
       propagateLazy(S,aL,aR);
       if (aL == L && aR == R)
         return st[S];
@@ -77,10 +83,10 @@ class SegmentTree {
 class CrazySegmentTree {
   public:
     CrazySegmentTree(int n):n(n) { 
-      st.assign(4*n,vector<vector<long long>>(3,vector<long long>(3,INF))); 
+      st.assign(4*n,array<array<int,3>,3>({array<int,3>({INF,INF,INF}),array<int,3>({INF,INF,INF}),array<int,3>({INF,INF,INF})}));
     }
 
-    long long getWithAandB(int R1, int R2, int a, int b) {
+    int getWithAandB(int R1, int R2, int a, int b) {
       return getRows(R1,R2,0,n-1,1)[a][b];
     }
 
@@ -90,11 +96,11 @@ class CrazySegmentTree {
 
   protected:
     int n; 
-    vector<vector<vector<long long>>> st; 
+    vector<array<array<int,3>,3>> st; 
 
     int l(int idx) {return idx<<1;} 
     int r(int idx) {return (idx<<1)+1;} 
-    vector<vector<long long>> getRows(int R1, int R2, int aL, int aR, int S) {
+    array<array<int,3>,3> getRows(int R1, int R2, int aL, int aR, int S) {
       if (R1 <= aL && aR <= R2) {//inside target range
         return st[S];
       }
@@ -105,9 +111,9 @@ class CrazySegmentTree {
         else if (R1 >= leftMax+1)
           return getRows(R1,R2,leftMax+1,aR,r(S));
         else {
-          vector<vector<long long>> side = getRows(R1,R2,aL,leftMax,l(S));
-          vector<vector<long long>> side2 = getRows(R1,R2,leftMax+1,aR,r(S));
-          vector<vector<long long>> result(3,vector<long long>(3,INF));
+          array<array<int,3>,3> side = getRows(R1,R2,aL,leftMax,l(S));
+          array<array<int,3>,3> side2 = getRows(R1,R2,leftMax+1,aR,r(S));
+          array<array<int,3>,3> result({array<int,3>({INF,INF,INF}),array<int,3>({INF,INF,INF}),array<int,3>({INF,INF,INF})});
           
           for (int a=0;a<3;++a) {
             for (int b=0;b<3;++b) {
@@ -172,8 +178,8 @@ const int N_MAX = 1e6;
 vector<int> counts;
 vector<vector<int>> grid;
 set<int> emptyRows;
-SegmentTree leftSegTree(N_MAX);
-SegmentTree rightSegTree(N_MAX);
+SegmentTree<N_MAX> leftSegTree;
+SegmentTree<N_MAX> rightSegTree;
 CrazySegmentTree midSectionTree(N_MAX);
 
 void reset(int N) {
@@ -199,14 +205,14 @@ void addToGrid(int R, int C) {
   grid[R][C] = 1;
 }
 
-long long solve(int R1, int C1, int R2, int C2) {
-  long long minCost = INF;
+int solve(int R1, int C1, int R2, int C2) {
+  int minCost = INF;
 
   for (int a=0;a<3;++a) {
     for (int b=0;b<3;++b) {
       if (grid[R1][a] && grid[R2][b]) {
         //top section 
-        long long topSection = INF;
+        int topSection = INF;
         if (a == C1) topSection = 0;
         else if (abs(a-C1) == 1) topSection = 1;
         else if (emptyRows.find(R1) != emptyRows.end()) {
@@ -221,11 +227,11 @@ long long solve(int R1, int C1, int R2, int C2) {
           }
         }
         //middle section
-        long long midSection = 0;
+        int midSection = 0;
         midSection = midSectionTree.getWithAandB(R1,R2,a,b);
         
         //bottom section
-        long long bottomSection = INF;
+        int bottomSection = INF;
         if (b == C2) bottomSection = 0;
         else if (abs(b-C2) == 1) bottomSection = 1;
         else {
@@ -236,7 +242,7 @@ long long solve(int R1, int C1, int R2, int C2) {
             }
           }
         } 
-        
+        if (bottomSection == INF || topSection == INF || midSection == INF) continue;
         minCost = min(minCost,topSection+midSection+bottomSection);
 
       }
