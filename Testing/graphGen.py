@@ -18,15 +18,24 @@ COST = minMax(1,3600)
 
 TREE = False
 WEIGHTED = False
-
+print("a")
 if len(sys.argv) > 1:
   args = sys.argv[1:]
+  print(args)
   try:
     TC = int(args[0])
     N = minMax(int(args[1]),int(args[2]))
     COST = minMax(int(args[3]),int(args[4]))
-    TREE = bool(args[5])
-    WEIGHTED = bool(args[6])
+    if args[5] == "False":
+      TREE = False
+    else:
+      TREE = True
+
+    if args[6] == "False":
+      WEIGHTED = False
+    else:
+      WEIGHTED = True
+      
   except IndexError:
     print("Incorrect arguments")
     sys.exit()
@@ -36,7 +45,7 @@ else:
   print("Argument format: python graphGen.py <TC> <minN> <maxN> <minCost> <maxCost> <tree> <weighted>")
 
 
-with open("input.txt","w") as f:
+with open("inputGraph.txt","w") as f:
   f.write(f"{TC}\n")
   for case in range(TC):
     n = pick(N)
@@ -45,8 +54,12 @@ with open("input.txt","w") as f:
     connected = [set() for i in range(n+1)]
     if WEIGHTED:
       edges = [(1,2,pick(COST))] # seed
+      connected[1].add(2)
+      connected[2].add(1)
     else:
       edges = [(1,2)] # seed
+      connected[1].add(2)
+      connected[2].add(1)
     
     for i in range(3,n+1):
       other = random.randint(1,i-1)
@@ -68,11 +81,11 @@ with open("input.txt","w") as f:
       m = n-1 + extra
     
       for i in range(extra):
-        u = random.randint(0,n-1)
-        v = random.randint(0,n-1)
+        u = random.randint(1,n)
+        v = random.randint(1,n)
         while v in connected[u] or u == v:
-          u = random.randint(0,n-1)
-          v = random.randint(0,n-1)
+          u = random.randint(1,n)
+          v = random.randint(1,n)
         if WEIGHTED:
           cost = pick(COST)
           edges.append((u,v,cost))
