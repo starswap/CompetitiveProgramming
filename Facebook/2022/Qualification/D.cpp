@@ -1,5 +1,30 @@
-//Compile with C++17;
+//Takes around 30 seconds on the official practice input.
+
+//Compile with C++20;
 //I have been unable to submit this, but I think it works as it has been tested. 
+
+//Using sqrt(N) small/big sets in a slightly different way to the suggested way:
+
+//My way:
+  
+  // For each edge A-B: -> Does all *L* 
+    // Deal with direct
+    // If B light, consider all edges BC for the indirect path ABC
+    // If A light, consider all edges AC for the indirect path BAC
+
+  // For each query A,B -> Does all *H*
+    // For each heavy node C
+      // deal with indirect A-C-B
+
+// Official way:
+  // For each heavy node: -> Deals with all H-*
+    // Take all possible two-steps from that node and save scores for where you end up
+    // (This is O(root n) heavy nodes * O(M) edges which can each be used at most once per big node - can see this since each edge out of big node is traversed once then we traverse all edges out of the next node - i.e. it's a capped DFS, O(V+E))
+
+  // For each query A-B of the form L-L
+    // Loop through all C in neighbours(A) and neighbours(B) to deal with indirect A-C-B
+    // -> Will have to do this with a map which we populate with costs from A, and then overwrite with the minimum of that and the cost from B.
+
 
 #include <unordered_map>
 #include <unordered_set>
@@ -82,6 +107,19 @@ void updateEdge(int A, int B, long long cost) {
       queryCosts[hash_pair(make_pair(A,B))] += cost;
 }
 
+void updateEdge(int A, int B, pair<int,int> one, pair<int,int> two) {
+  if (A > B) swap(A,B);
+  if (queryCosts.find(hash_pair(make_pair(A,B))) != queryCosts.end()) {
+    
+    if (AM.contains(one.first) && AM[one.first].contains(one.second)
+        && AM.contains(two.first) && AM[two.first].contains(two.second)) {
+      
+        queryCosts[hash_pair(make_pair(A,B))] += min(AM[one.first][one.second],AM[two.first][two.second]);
+    }
+  }
+}
+
+
 void dealWithLight() {
   //Calcualte all direct A-B and all *-Light-*
   for (auto [A,B] : EL) {
@@ -89,11 +127,11 @@ void dealWithLight() {
 
     if (heavy.find(A) == heavy.end()) //A is light set node
       for (int C : AL[A])
-        updateEdge(B,C,min(AM[A][B],AM[A][C]));     
+        updateEdge(B,C,make_pair(A,B),make_pair(A,C));     
     
     if (heavy.find(B) == heavy.end()) //B is light set node
       for (int C : AL[B])
-        updateEdge(A,C,min(AM[A][B],AM[B][C]));
+        updateEdge(A,C,make_pair(A,B),make_pair(B,C));
 
 
   }
@@ -109,7 +147,7 @@ void dealWithHeavy() {
   for (auto key_value : queryCosts) {
     auto [A,B] = unhash_pair(key_value.first);
     for (int C : heavy)
-      updateEdge(A,B,min(AM[A][C],AM[B][C]));
+      updateEdge(A,B,make_pair(A,C),make_pair(B,C)); // FIX
   }
 }
 
