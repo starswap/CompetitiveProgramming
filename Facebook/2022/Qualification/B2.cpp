@@ -1,3 +1,5 @@
+//Alternatively use a BFS. We then don't need to repeat the search from all of the initially failing trees because they can all be added to the same queue.
+
 #include <bits/stdc++.h>
 using namespace std;
 
