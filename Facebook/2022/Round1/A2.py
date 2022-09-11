@@ -1,5 +1,3 @@
-#TO ADD TO CP LIB.
-
 import sys
 
 def isCyclicPerm_KMP(A,B):
@@ -45,6 +43,8 @@ for t in range(1,TCs+1):
     doable = True
     if K == 0 and A != B:
         doable = False
+    elif len(set(A)) == 1:
+        doable = True
     elif K == 1 and A == B: #May no longer be true in A2.
         if (N % 2 == 0 and A[:N//2] == A[N//2:]):
             doable = True
@@ -57,5 +57,6 @@ for t in range(1,TCs+1):
             doable = (K % 2) != 0
     else:
         doable = CP
+
     print(f"Case #{t}: {'YES' if doable else 'NO'}")
     sys.stdout.flush()
