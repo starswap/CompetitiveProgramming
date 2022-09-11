@@ -18,3 +18,4 @@ output*.txt
 output*
 old.cpp
 old2.cpp
+.vscode
