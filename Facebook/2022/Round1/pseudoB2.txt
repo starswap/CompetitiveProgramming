@@ -1,0 +1,42 @@
+
+XScores = array(Queries)
+sort all well posns to have increasing x 
+Compute sigma(x^2) for all trees for the first well.
+split trees into (left of well) (right of well)
+compute sum of distances to well for left
+compute sum of distances to well for right
+XScores[0] = sigma(x^2) for first well as computed on line 3
+
+For next well,
+    Find delta X between this and the last well
+    
+    For each tree which has moved from right to left,
+        right -= distance to previous
+        numberRight -= 1
+
+    rightSum -= numberRight*(deltaX)
+    leftSum += numberLeft*(deltaX)
+
+    For each tree which has moved from right to left,
+        left += distance to this one
+        numberLeft += 1
+
+    Contrib[q] = (
+        Contrib[qOld] % MOD + # x^2
+        2*deltaA*sigmaALeftOld % MOD - # + 2ax
+        2*deltaA*sigmaARightOld % MOD + # - 2ax
+        (numLeft+numRight)*((deltaA % MOD)*(deltaA % MOD) % MOD) % MOD # + a^2
+    ) % MOD ##DETERMINED BY EXPANDING BINOMIAL SQUARED
+    
+
+    save to XScores[1]
+and repeat for all wells going to the right
+
+Process ys with wells going down the page
+
+, for all wells.
+
+
+Now, for each well query, output XScores[q] + YScores[q]
+
+
