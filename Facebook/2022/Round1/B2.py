@@ -1,5 +1,4 @@
-#Turn y back on
-#Streamline
+#Could Streamline by calculating sum rather than each contribution over time.
 
 def solveForOneDimension(trees,WellA,Contrib,dim):
     """a Represents either x or y"""
