@@ -1,0 +1,124 @@
+USE LONG LONG
+
+Collect edge cases	
+
+
+0. Find convex hull
+1. remove any houses which are on an edge of the convex hull, or inside the hull.
+2. Start at the leftmost house
+3. Can it be done can be answered in O(N) using DFS. 
+4. IF you know it can be done, 	
+
+Does not have to be monotonic - you can zigzag for x
+
+circle theorems?
+
+
+
+sqrt will be ok
+
+
+
+
+Can only do it if < D
+Worth doing if dot product is positive or K thingy.
+
+
+
+
+
+
+
+(cab't take all of them in conjunction with each other though.)
+3. For all houses within D, find the dot product between the two paths. If it's positive, take that house. Otherwise if all houses are negative:
+					-- You may have to try all houses depending on which ones have other houses within D = htat's the problem.
+
+May have to cross
+
+
+
+3.
+
+
+
+Can we sort them by dot product?
+Or can we compute the angles in each one and sort of add them up.
+
+
+
+
+2. Consider X and Y separately ? 
+
+almost certainyl will involve a segment tree
+building up for different values of N.
+
+it is a convex polygon. That is the key point.
+split into triangles?
+	- how can we solve for a triangle?
+	3 choices at each point? 
+	
+	Heuristic based search?
+		A* 
+		
+		
+Possibility: Distance D -> What to do if this constraint wasn't there?
+Minimum Brand Damage: 
+- 
+
+at what point does it become worth deviating from the direct path?
+- Worth deviating if 0 < AxBx + AyBy
+
+
+AxBx +ve AyBy +ve : Worth deviating from direct path (on the way but a bit off; no up and above)
+AxBx +ve AyBy -ve : (we have gone a the wrong way in one of the axes in one section; if it's not too much above then it's ok)
+AxBx -ve AyBy +ve : (we have gone a the wrong way on one of the axes in one section; if it's not too much above then it's ok)
+AxBx -ve AyBy -ve : (we have gone the wrong way on both of the axes in one of the sections - not nec. the same one); never ok.
+
+
+Make AxBx + AyBy as large as possible.
+
+
+
+Ignoring K and D:
+- Start with the direct path from start to end.
+- 
+
+
+
+How many points can there be with positive AxBx + AyBy 
+AxBx + AyBy is the dot product of A and B.
+
+A simple way of saying it is that the angle between them must be less than 90 degrees, according to the feet in the same place dot product angle rule.
+-> Provided that there are 4 or more houses you will probably almost be using all houses on one side of the polygon, though this isn't guaranteed. 
+
+distance has to be less than D,
+
+
+
+
+
+
+
+
+
+
+
+(if we ignore the K aspect)
+May have to play with 2K on LHS
+	
+	Greedy algorithm?
+	
+
+
+
+K? D?
+
+BSTA?
+
+All integer coordinates - consider looping / line sweeping / 
+May be going backwards
+
+By definition all of the houses lie on a convex polygon
+
+Go direct worse than stopping in between, depending on how close
+ to being on that line you are stopping.
