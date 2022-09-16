@@ -129,7 +129,7 @@ long long doDijkstra(const vector<point> &points) {
                 costs[n] = min(costs[n],relaxedCost);
             }
         }
-        costs[minIndex] = -1;
+        costs[minIndex] = -1; //OR You can have another array of bool for visited and set to true but that uses more memory.
 
         popPQArray(costs,N,minCost,minIndex);
     }
