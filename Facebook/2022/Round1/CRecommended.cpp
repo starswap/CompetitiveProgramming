@@ -1,3 +1,5 @@
+//Recommended method; optimised version.
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -6,7 +8,6 @@ typedef vec point;
 template <class T>
 ostream& operator << (ostream& o, vector<T> v);
 ostream& operator << (ostream& o, point p);
-
 
 long long K, D;
 long long INF = LONG_LONG_MAX; 
@@ -85,8 +86,16 @@ ostream& operator << (ostream& o, vector<T> v) {
 }
 
 
-inline long long getCost(int u, int v, const vector<point> &points) {
-    return max(K, (points[u].x-points[v].x)*(points[u].x-points[v].x) + (points[u].y-points[v].y)*(points[u].y-points[v].y) );
+long long getCost(int u, int v, const vector<point> &points) {
+    long long x1 = points[u].x;
+    long long x2 = points[v].x;
+    long long y1 = points[u].y;
+    long long y2 = points[v].y;
+    long long cost = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
+    if (K > cost)
+        return K;
+    else
+        return cost; 
 }
 
 inline bool connected(int u, int v, const vector<point> &points) {
@@ -95,11 +104,11 @@ inline bool connected(int u, int v, const vector<point> &points) {
     );
 }
 
-inline void popPQArray(const unordered_set<int> &popped, const vector<long long> &costs, const int &N, long long &minCost, int &minIndex) {
+inline void popPQArray(const vector<long long> &costs, const int &N, long long &minCost, int &minIndex) {
     minCost = INF;
     minIndex = -1;
     for (int n=0;n<N;++n)
-        if (costs[n] < minCost && !popped.contains(n)) {minCost = costs[n]; minIndex = n;}
+        if (costs[n] < minCost && !(costs[n] == -1)) {minCost = costs[n]; minIndex = n;}
 }
 
 long long doDijkstra(const vector<point> &points) {
@@ -107,32 +116,22 @@ long long doDijkstra(const vector<point> &points) {
     vector<long long> costs(N,INF);
     costs[0] = 0;
 
-    unordered_set<int> popped;
 
     long long minCost = INF;
     int minIndex = -1;
-    popPQArray(popped,costs,N,minCost,minIndex);
+    popPQArray(costs,N,minCost,minIndex);
 
     while (minIndex != N-1 && minIndex != -1) { // while there's still a chance of getting there and we haven't got there.
-        // cout << costs << endl;
-        // cout << "MI " << minIndex << endl;
-        // // cout << minCost << endl;
 
         for (int n=0;n<N;++n) {
-            // cout << (connected(n,minIndex,points) ? "conn" : "not conn") << endl;
-            if (n != minIndex && !popped.contains(n) && connected(n,minIndex,points)) {
-                // cout << "YES" << endl;
-                // cout << getCost(minIndex,n,points) << endl;
-                // cout << minCost << endl;
+            if (n != minIndex && !(costs[n] == -1) && connected(n,minIndex,points)) {
                 long long relaxedCost = minCost+getCost(minIndex,n,points);
-                // cout << relaxedCost << endl;
-                // cout << "n" << n << endl;
-                // cout << "Rc" << relaxedCost << endl;
                 costs[n] = min(costs[n],relaxedCost);
             }
         }
-        popped.insert(minIndex);
-        popPQArray(popped,costs,N,minCost,minIndex);
+        costs[minIndex] = -1;
+
+        popPQArray(costs,N,minCost,minIndex);
     }
 
     if (minIndex == -1)
@@ -156,8 +155,11 @@ int main() {
         // cout << points << endl;
         vector<point> CH = AMC(points);
         CH.pop_back();
-        sort(CH.begin(),CH.end(),pointsCMP);
+        // cout << "HULL DONE" << endl;
 
+        sort(CH.begin(),CH.end(),pointsCMP);
+        // cout << "SORT DONE" << endl;
+        
         // cout << CH << endl;
         long long ans = doDijkstra(CH);
 
