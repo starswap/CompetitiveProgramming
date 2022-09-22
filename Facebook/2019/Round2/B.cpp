@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+//My original code for this problem, which achieves AC in 3.9 seconds.
 // Method: 
 //      Each palindrome constraint can be phrased as saying that the first bit in the subrange equals the last bit in the subrange, the second bit equals the second-last bit, and so on.
 //      Therefore we have a number of pairs of elements which must be equal. The same element can appear in multiple pairs, creating a larger subset of bits that must all be equal. (e.g. 1 == 3 == 5 == 7)
