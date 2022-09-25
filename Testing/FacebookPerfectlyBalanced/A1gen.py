@@ -1,3 +1,4 @@
+#Generate and check that regardless of random seed we get the same answers - proves that it's high enough chance of being right
 import random
 
 random.seed(100)
