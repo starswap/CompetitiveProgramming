@@ -29,20 +29,10 @@ int main() {
 	
 		int lo = 0;
 		int hi = 400000000;
-		
-		/*cout << xMinMax[0] << endl;
-		cout << yMinMax[0] << endl;
-		cout << zMinMax[0] << endl;
-		cout << xMinMax[1] << endl;
-		cout << yMinMax[1] << endl;
-		cout << zMinMax[1] << endl;*/
-		
+	
 		
 		while (lo != hi) { 
 			int L = (lo+hi)/2;
-			
-		//	cout << "hi" << hi << "lo" << lo << endl;
-		//	cout << "L" << L << endl;
 		
 			bool can = false;
 			for (int i=0;i<=1;++i) {
@@ -73,18 +63,11 @@ int main() {
 						int zSubMax = -1000000000;
 						bool unchanged = true;
 						
-						//cout << "C (" << Cx << "," << Cy << "," << Cz << ")" << endl;
-					//	cout << "L" << L << endl; 
-						
 						for (int l=0;l<N;++l) {
 							auto &[x,y,z] = Cs[l];
 							int r = Rs[l];
 							
-							//cout << "x" << x << endl; 
-							//cout << "P (" << x << "," << y << "," << z << ")" << " R: " << r << endl;
-							//EPS?
 							if (!(x+r <= static_cast<double>(Cx)+static_cast<double>(L)/2.0 && x-r >= static_cast<double>(Cx)-static_cast<double>(L)/2.0 && y+r <= static_cast<double>(Cy)+static_cast<double>(L)/2.0 && y-r >= static_cast<double>(Cy)-static_cast<double>(L)/2.0 && z+r <= static_cast<double>(Cz)+static_cast<double>(L)/2.0 && z-r >= static_cast<double>(Cz)-static_cast<double>(L)/2.0)) { //not bounded by this cube
-					//			cout << "no" << endl;
 								xSubMin = min(xSubMin,x-r);
 								xSubMax = max(xSubMax,x+r);
 								ySubMin = min(ySubMin,y-r);
@@ -98,7 +81,6 @@ int main() {
 						
 						if ((xSubMax - xSubMin <= L && ySubMax-ySubMin <= L && zSubMax - zSubMin <= L || unchanged) && can != true) {//can do : ) -> all in 1st cube or can find 2nd cube to make others work.
 							can = true;
-//							cout << "unc" << unchanged << endl;
 						}
 
 					}
