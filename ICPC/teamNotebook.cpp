@@ -60,3 +60,24 @@ vector<point> CH(vector<point> &pts) {
     H.resize(k);
     return H;
 }
+
+int lis(const vector<int>& xs) {
+    int n = xs.size();
+    int k = 0;
+    vector<int> endValLengthL(n, 0);
+    vector<int> endIdxLengthL(n, 0);
+
+    for (int i = 0; i < n; ++i) {
+        int l = lower_bound(endValLengthL.begin(), endValLengthL.begin() + k, xs[i]) - endValLengthL.begin();
+        endValLengthL[l] = xs[i];
+        endIdxLengthL[l] = i;
+        if (l == k) k++;
+    }
+
+    return k;
+}
+
+// Lambda syntax to produce normal ascending sort order.
+sort(liz.begin(), liz.end(), [v](point a, point b) {
+	return a < b;
+});
