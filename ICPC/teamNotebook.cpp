@@ -61,21 +61,23 @@ vector<point> CH(vector<point> &pts) {
     return H;
 }
 
-int lis(const vector<int>& xs) {
-    int n = xs.size();
-    int k = 0;
-    vector<int> endValLengthL(n, 0);
-    vector<int> endIdxLengthL(n, 0);
-
-    for (int i = 0; i < n; ++i) {
-        int l = lower_bound(endValLengthL.begin(), endValLengthL.begin() + k, xs[i]) - endValLengthL.begin();
-        endValLengthL[l] = xs[i];
-        endIdxLengthL[l] = i;
-        if (l == k) k++;
-    }
-
-    return k;
+vector<int> lis(const vector<int>& xs) {
+    vector<int> res;
+    for (int x : xs)
+        if (res.size() == 0 || x > *res.rbegin())
+            res.push_back(x);
+        else
+            res[lower_bound(res.begin(), res.end(), x) - res.begin()] = x;
+    return res;
 }
+
+//  res = []
+//     for num in nums:
+//         if not res or num > res[-1]:
+//             res.append(num)
+//         else:
+//             idx = bisect.bisect_left(res, num)
+//             res[idx] = num
 
 // Lambda syntax to produce normal ascending sort order.
 sort(liz.begin(), liz.end(), [v](point a, point b) {
