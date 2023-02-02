@@ -4,6 +4,7 @@ using namespace std;
 const double EPS = 1e-9;
 const double INF = 1e19;
 
+/* GEOMETRY */
 struct point {
     double x, y;
     point():x(0),y(0) {};
@@ -61,6 +62,18 @@ vector<point> CH(vector<point> &pts) {
     return H;
 }
 
+double area(const vector<point> &pts) {
+    // Shoelace Formula
+    double area = 0;
+    for (int i = 0; i < pts.size() - 1; ++ i) {
+        area += (pts[i].x) * (pts[i+1].y);
+        area -= (pts[i+1].x) * (pts[i].y);
+    }
+    return area / 2;
+}
+
+/* DP */
+
 vector<int> lis(const vector<int>& xs) {
     vector<int> res;
     for (int x : xs)
@@ -68,16 +81,11 @@ vector<int> lis(const vector<int>& xs) {
             res.push_back(x);
         else
             res[lower_bound(res.begin(), res.end(), x) - res.begin()] = x;
+            // (in Python: idx = bisect.bisect_left(res, num))
     return res;
 }
 
-//  res = []
-//     for num in nums:
-//         if not res or num > res[-1]:
-//             res.append(num)
-//         else:
-//             idx = bisect.bisect_left(res, num)
-//             res[idx] = num
+/* SYNTAX */
 
 // Lambda syntax to produce normal ascending sort order.
 sort(liz.begin(), liz.end(), [v](point a, point b) {
