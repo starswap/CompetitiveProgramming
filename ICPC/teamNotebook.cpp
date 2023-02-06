@@ -26,6 +26,8 @@ bool operator < (point a, point b) {
     else return a.x < b.x;
 }
 
+typedef vector<point> polygon;
+
 double norm(vec a) {return sqrt(a.dx*a.dx + a.dy*a.dy);}
 
 double cross(vec a, vec b) {return a.dx*b.dy - a.dy*b.dx;}
@@ -72,6 +74,33 @@ double area(const vector<point> &pts) {
     return area / 2;
 }
 
+double ptToLineSegment(point p, line l) {
+    double da = dot(vec(l.a, p), vec(l.a, l.b));
+    double db = dot(vec(l.b, p), vec(l.b, l.a));
+
+    if (da > EPS && db > EPS) { // in range
+        double d1 = da / norm(vec(l.b, l.a));
+        double ax = ptToPt(l.a, p);
+        return sqrt(ax*ax - d1*d1);
+    }
+    else { // out of range
+        return min(ptToPt(l.a, p), ptToPt(l.b, p));
+    }
+}
+
+bool pointInPolygon(point p, polygon poly) {
+    bool count = false;
+    for (int i = 0; i < poly.size() - 1; ++i) {
+        if ((poly[i].y > p.y != poly[i + 1].y > p.y)) {//  && // horizontal ray; check it lies in the vertical bounds of the side
+            if (p.x < EPS + (poly[i+1].x - poly[i].x) / (poly[i+1].y - poly[i].y) * (p.y - poly[i].y) + poly[i].x) {
+                count = !count;
+            }
+        }
+    }
+    return count;
+}
+
+
 /* DP */
 
 vector<int> lis(const vector<int>& xs) {
@@ -91,3 +120,7 @@ vector<int> lis(const vector<int>& xs) {
 sort(liz.begin(), liz.end(), [v](point a, point b) {
 	return a < b;
 });
+
+// Custom comparator lambda syntax
+auto comp = [polys] (int n) { return area(polys[n]) < area(polys[n]);};
+set<int, decltype(comp)> containingPolygons(comp);
