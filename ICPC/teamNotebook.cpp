@@ -325,6 +325,7 @@ double min_cost_flow(int N, vector<Edge> edges, double K, int s, int t) {
 struct Edge
 {
     int from, to, capacity, cost;
+    Edge(int from, int to, int capacity, int cost):from(from),to(to),capacity(capacity),cost(cost) {}
 };
 
 vector<vector<int>> adj, cost, capacity;
@@ -400,3 +401,12 @@ int min_cost_flow(int N, vector<Edge> edges, int K, int s, int t) {
     else
         return cost;
 }
+
+// PBDS
+#include <bits/extc++.h>
+using namespace __gnu_pbds;
+
+#define ordered_set tree<int,null_type,less<int>,rb_tree_tag,tree_order_statistics_node_update>
+order_of_key (k) : Number of items strictly smaller than k .
+find_by_order(k) : K-th element in a set (counting from zero). //This is what you need 
+
