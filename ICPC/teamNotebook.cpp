@@ -412,3 +412,7 @@ find_by_order(k) : K-th element in a set (counting from zero). //This is what yo
 
 // MOD Qs
 // C++ Mod (-3) % 5 = -3
+
+// Fill a DP table
+fill(&dp[0][0][0][0], &dp[0][0][0][0] + sizeof(dp) / sizeof(dp[0][0][0][0]), -1);
+
