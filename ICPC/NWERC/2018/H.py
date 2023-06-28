@@ -1,9 +1,9 @@
 n, c, b = map(int, input().split())
 brokens = [*map(lambda x : int(x) - 1, input().split())]
 
-bits = [-1 for _ in range(n)] # default; not set
+bits = [-1 for _ in range(n)]     # default; not set
 for i in range(b):
-    bits[brokens[i]] = 0 # break brokens
+    bits[brokens[i]] = 0          # break broken bits
 
 if c % 2 == 1:                    # if odd we need the first one
     bits[0] = 1                   # odd change first to second
