@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+#pragma GCC optimize("O2") // usually not necessary; unroll-loops is another one
 
 const double EPS = 1e-9;
 const double INF = 1e19;
