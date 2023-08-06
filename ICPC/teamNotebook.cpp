@@ -150,76 +150,79 @@ auto comp = [polys] (int n) { return area(polys[n]) < area(polys[n]);};
 set<int, decltype(comp)> containingPolygons(comp);
 
 
-/*Network Flow*/
-// Push-Relabel algorithm
-int V;
-vector<vector<int>> capacity, flow;
-vector<int> height, excess;
+/* (Max Flow) (Network Flow) (MCMF) with Dinic Blocking Flow*/
+typedef long long LL;
 
-void push(int u, int v) {
-    int d = min(excess[u], capacity[u][v] - flow[u][v]);
-    flow[u][v] += d;
-    flow[v][u] -= d;
-    excess[u] -= d;
-    excess[v] += d;
-}
+struct Edge {
+  int u, v;
+  LL cap, flow;
+  Edge() {}
+  Edge(int u, int v, LL cap): u(u), v(v), cap(cap), flow(0) {}
+};
 
-void relabel(int u) {
-    int d = INF;
-    for (int i = 0; i < V; i++) {
-        if (capacity[u][i] - flow[u][i] > 0)
-            d = min(d, height[i]);
+struct Dinic {
+  int N;
+  vector<Edge> E;
+  vector<vector<int>> g;
+  vector<int> d, pt;
+  
+  Dinic(int N): N(N), E(0), g(N), d(N), pt(N) {}
+
+  void AddEdge(int u, int v, LL cap) {
+    if (u != v) {
+      E.emplace_back(u, v, cap);
+      g[u].emplace_back(E.size() - 1);
+      E.emplace_back(v, u, 0);
+      g[v].emplace_back(E.size() - 1);
     }
-    if (d < INF)
-        height[u] = d + 1;
-}
+  }
 
-vector<int> find_max_height_vertices(int s, int t) {
-    vector<int> max_height;
-    for (int i = 0; i < V; i++) {
-        if (i != s && i != t && excess[i] > 0) {
-            if (!max_height.empty() && height[i] > height[max_height[0]])
-                max_height.clear();
-            if (max_height.empty() || height[i] == height[max_height[0]])
-                max_height.push_back(i);
+  bool BFS(int S, int T) {
+    queue<int> q({S});
+    fill(d.begin(), d.end(), N + 1);
+    d[S] = 0;
+    while(!q.empty()) {
+      int u = q.front(); q.pop();
+      if (u == T) break;
+      for (int k: g[u]) {
+        Edge &e = E[k];
+        if (e.flow < e.cap && d[e.v] > d[e.u] + 1) {
+          d[e.v] = d[e.u] + 1;
+          q.emplace(e.v);
         }
+      }
     }
-    return max_height;
-}
+    return d[T] != N + 1;
+  }
 
-int max_flow(int s, int t) {
-    height.assign(V, 0);
-    height[s] = V;
-    flow.assign(V, vector<int>(V, 0));
-    excess.assign(V, 0);
-    excess[s] = INF;
-    for (int i = 0; i < V; i++) {
-        if (i != s)
-            push(s, i);
-    }
-
-    vector<int> current;
-    while (!(current = find_max_height_vertices(s, t)).empty()) {
-        for (int i : current) {
-            bool pushed = false;
-            for (int j = 0; j < V && excess[i]; j++) {
-                if (capacity[i][j] - flow[i][j] > 0 && height[i] == height[j] + 1) {
-                    push(i, j);
-                    pushed = true;
-                }
-            }
-            if (!pushed) {
-                relabel(i);
-                break;
-            }
+  LL DFS(int u, int T, LL flow = -1) {
+    if (u == T || flow == 0) return flow;
+    for (int &i = pt[u]; i < g[u].size(); ++i) {
+      Edge &e = E[g[u][i]];
+      Edge &oe = E[g[u][i]^1];
+      if (d[e.v] == d[e.u] + 1) {
+        LL amt = e.cap - e.flow;
+        if (flow != -1 && amt > flow) amt = flow;
+        if (LL pushed = DFS(e.v, T, amt)) {
+          e.flow += pushed;
+          oe.flow -= pushed;
+          return pushed;
         }
+      }
     }
+    return 0;
+  }
 
-    int max_flow = 0;
-    for (int i = 0; i < V; i++)
-        max_flow += flow[i][t];
-    return max_flow;
-}
+  LL MaxFlow(int S, int T) {
+    LL total = 0;
+    while (BFS(S, T)) {
+      fill(pt.begin(), pt.end(), 0);
+      while (LL flow = DFS(S, T))
+        total += flow;
+    }
+    return total;
+  }
+};
 
 
 
