@@ -1,16 +1,19 @@
-# sorts test cases by extension
-
-files=$(ls cases)
+CASES="data"
+files=$(ls $CASES)
+# echo $files
+mkdir $CASES/in
+mkdir $CASES/ans
 for file in $files
 do
+    echo $file
     IFS='.' read -ra ADDR <<< "$file"
     base=${ADDR[0]}
     ext=${ADDR[1]}
     if [ "$ext" = "in" ];
     then
-        mv "cases/$file" "cases/in/$file"
+        mv "$CASES/$file" "$CASES/in/$file"
     elif [ "$ext" = "ans" ];
     then
-        mv "cases/$file" "cases/ans/$file"
+        mv "$CASES/$file" "$CASES/ans/$file"
     fi
 done
