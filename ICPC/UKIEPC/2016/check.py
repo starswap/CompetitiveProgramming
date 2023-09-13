@@ -21,15 +21,13 @@ def is_ok(ops, target):
             elif code == "ST":
                 reg[operands[0]] = 1
             elif code == "DI":
-                print(reg)
-                print(stack)
                 return reg[operands[0]] == target
 
 import time
 
-for i in range(230, 231):
+for i in range(256):
     start = time.time()
-    result = subprocess.check_output(["./a.exe"], input=bytes(str(i), "ascii"))
+    result = subprocess.check_output(["python", "luke.py"], input=bytes(str(i), "ascii"))
     end = time.time()
-    ops = result.decode("ascii").split("\n")
-    print(f"{i} {is_ok(ops, i)} - {end - start}")
+    ops = result.decode("ascii").strip().split("\n")
+    print(f"{i} {is_ok(ops, i)} - {end - start} - {len(ops)}")
