@@ -7,6 +7,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+
 typedef double T; // long double, Rational, double + mod<P>...
 typedef vector<T> vd;
 typedef vector<vd> vvd;
@@ -75,6 +76,29 @@ struct LPSolver {
 		return ok ? D[m][n+1] : inf;
 	}
 };
+
+
+
+// f1 * G1x + .... + fn * Gnx = Px
+// f1 * G1y + .... + fn * Gny = Py
+// Convert to a pair of <= and >= 
+// also f1 + f2 + f3 + ... + fn = 1
+// Constraints fa <= 1 and fa >= 0
+// the latter constraint is given in this code
+// A = [
+//   G1x .... Gnx
+//   -G1x .... -Gnx
+//   G1y ... Gny
+//   -G1y ... -Gny
+//  1 1 1 1 1 1 1 1 1 1
+//   -1 -1 -1 -1 -1 -1
+//   1 0 0 0 0 0 0 0 
+//   0 1 0 0 0 0 0 0 
+//      ....
+//   0 0 0 0 0 0 0 1
+//]
+// b = [Px, -Px, Py, -Py, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1]
+// We can take any solution so just let c = all 0s.
 
 int main() {
     int n;
