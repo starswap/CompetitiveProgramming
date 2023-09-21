@@ -1,3 +1,5 @@
+# Simulator for C, for testing purposes only
+ 
 import copy
 import fractions
 
