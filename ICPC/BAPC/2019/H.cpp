@@ -31,6 +31,8 @@ int main() {
     cin >> p >> v;
 
     vector<pedestal> ds(p);
+    vector<pair<int, int>> vs(v);
+
     for (int i = 0; i < p; ++i) {
         int a,b;
         cin >> a >> b;
@@ -39,30 +41,24 @@ int main() {
         ds[i].id = i + 1;
     }
 
-    sort(ds.begin(), ds.end());
-
-    vector<pair<int, int>> vs(v);
     for (int i = 0; i < v; ++i) {
         cin >> vs[i].first;
-        vs[i].second = i;
+        vs[i].second = i; // use second as an id
     }
 
+    sort(ds.begin(), ds.end());
     sort(vs.begin(), vs.end());
 
     vector<int> ans(v, -1);
-    for (int i = 0, j = 0; i < v && j < p; ++j) {
+    int i, j;
+    for (i = 0, j = 0; i < v && j < p; ++j) {
         if (vs[i].first == ds[j].first || vs[i].first == ds[j].second) {
             ans[vs[i].second] = (ds[j].id);
             ++i;
         }
     }
 
-    bool possible = true;
-    for (int i : ans) {
-        possible &= i != -1;
-    }
-
-    if (possible) {
+    if (i == v) {
         for (int i : ans) {
             cout << i << endl;
         }
