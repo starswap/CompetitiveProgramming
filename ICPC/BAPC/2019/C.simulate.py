@@ -3,7 +3,7 @@
 import copy
 import fractions
 
-p = fractions.Fraction(7,29)
+p = fractions.Fraction(2, 5)
 class Splitter:
     def __init__(self, o1, o2, input_value):
         self.o1 = o1
@@ -19,9 +19,16 @@ class Splitter:
 # spls = [Splitter(-1, 0, 1)]
 # spls = [Splitter(-1, 1, 1), Splitter(2, 1, 0),  Splitter(0, -2, 0)]
 # spls = [Splitter(-2, 1, 1), Splitter(2, 0, 0),  Splitter(1, -1, 0)]
-spls = [Splitter(1, 2, 1), Splitter(0, -1, 0), Splitter(-2, 0, 0)]
+# spls = [Splitter(1, 2, 1), Splitter(0, -1, 0), Splitter(-2, 0, 0)]
 
-MAX_ITER = 100
+spls = []
+N = int(input())
+for n in range(N):
+    a, b = map(int,input().split())
+    spls.append(Splitter(a, b, 0))
+spls[0].input_value = 1;
+
+MAX_ITER = 500
 
 outputs = [fractions.Fraction(0,1), fractions.Fraction(0,1)]
 
@@ -34,12 +41,8 @@ for i in range(MAX_ITER):
     # print(f"Left global output has value {outputs[-1].limit_denominator(max_denominator=7)}")
     # print(f"Right global output has value {outputs[-2].limit_denominator(max_denominator=7)}")
 
-
-    print(f"Left global output has value {float(outputs[-1])}")
-    print(f"Right global output has value {float(outputs[-2])}")
-
     for j in range(len(spls)):
-        print(f"Splitter {j} has input {spls[j].input_value} first {spls[j].get_o1()} and second {spls[j].get_o2()}")
+        # print(f"Splitter {j} has input {spls[j].input_value} first {spls[j].get_o1()} and second {spls[j].get_o2()}")
         if spls[j].o1 in (-1, -2):
             outputs[spls[j].o1] += spls[j].get_o1()
         else:
@@ -52,3 +55,5 @@ for i in range(MAX_ITER):
     
     spls = copy.deepcopy(new_spls)
     print("")
+print(f"Left global output has value {float(outputs[-1])}")
+print(f"Right global output has value {float(outputs[-2])}")
