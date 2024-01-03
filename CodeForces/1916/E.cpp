@@ -7,7 +7,7 @@ typedef long long ll;
 class SegmentTree {                              // To modify, change Conquer; Propagate; LAZY_DEFAULT
 private:
   int n;                                         // n = (int)A.size()
-  const int LAZY_DEFAULT = 0;
+  const int LAZY_DEFAULT = 0;                     // MODIFY HERE
   vi A, st, lazy;                                // the arrays
 
   int l(int p) { return  p<<1; }                 // go to left child
@@ -16,18 +16,18 @@ private:
   int conquer(int a, int b) {
     if (a == -1) return b;                       // corner case
     if (b == -1) return a;
-    return max(a, b);                            // RMQ
+    return max(a, b);                            // MODIFY HERE
   }
 
   void propagate(int p, int L, int R) {
     if (lazy[p] != LAZY_DEFAULT) {               // has a lazy flag
-      st[p] += lazy[p];
+      st[p] += lazy[p];                          // MODIFY HERE
       if (L != R) {                              // not a leaf
-        lazy[l(p)] += lazy[p];
-        lazy[r(p)] += lazy[p];                   // propagate downwards
+        lazy[l(p)] += lazy[p];                   // MODIFY HERE
+        lazy[r(p)] += lazy[p];                   // MODIFY HERE
       }                              
       else                                       // L == R, a single index
-        A[L] += lazy[p];                         // time to update this
+        A[L] += lazy[p];                         // MODIFY HERE
       lazy[p] = LAZY_DEFAULT;                    // erase lazy flag
     }
   }
