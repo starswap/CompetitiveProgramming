@@ -1,10 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// extra function
-// lazy default instead of -1
-// list of updates
-
 typedef long long ll;
 typedef vector<ll> vll;
 
