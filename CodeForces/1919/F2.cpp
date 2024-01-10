@@ -2,7 +2,6 @@
 using namespace std;
 
 typedef long long ll;
-typedef vector<ll> vll;
 
 typedef array<array<ll, 2>, 2> arr_t;
 class DPSegmentTree {
@@ -82,10 +81,9 @@ DPSegmentTree dpseg;
 
 arr_t compute_unit(int i) {
     arr_t node;
-    node[0][0] = A[i];
+    node[0][0] = min((ll) A[i], B[i] + C[i]);
     node[0][1] = B[i];
-    if (i > 0)
-        node[1][0] = A[i] + C[i - 1]; 
+    node[1][0] = B[i] + C[i];
     node[1][1] = B[i];
     return node;
 }
@@ -105,7 +103,6 @@ ll query() {
     B[p] = y;
     if (p != N - 1) {
         C[p] = z;
-        dpseg.update(p + 1, compute_unit(p + 1));
     }
     dpseg.update(p, compute_unit(p));
     arr_t res = dpseg.get_result();
@@ -117,7 +114,7 @@ int main() {
     cin >> N >> Q;
     A.assign(N, -1);
     B.assign(N, -1);
-    C.assign(N - 1, -1);
+    C.assign(N, 0);
     for (int n = 0; n < N; ++n) {
         cin >> A[n];
     }
