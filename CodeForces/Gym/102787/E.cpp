@@ -41,6 +41,7 @@ struct Treap {
     bool value;
     int totalnodes;
     bool lazy_toggle;
+    bool lazy_reverse;
     subtree_runs s;
 
     vector<Treap *> children;
@@ -48,6 +49,7 @@ struct Treap {
         totalnodes = 1;
         children.assign(2, nullptr);
         lazy_toggle = false;
+        lazy_reverse = false;
         priority = rand();
     }
     ~Treap() {
@@ -65,6 +67,13 @@ void propagate(Treap* t) {
         t->s.right_most = !t->s.right_most;
         t->lazy_toggle = false;
         for (Treap* c : t->children) {if (c != nullptr) {c->lazy_toggle = !c->lazy_toggle;}}
+    }
+    if (t->lazy_reverse) {
+        swap(t->s.left_most, t->s.right_most);
+        swap(t->s.right_run_length, t->s.left_run_length);
+        t->lazy_reverse = false;
+        for (Treap* c : t->children) {if (c != nullptr) {c->lazy_reverse = !c->lazy_reverse;}}
+        swap(t->children[0], t->children[1]);
     }
 }
 
@@ -136,6 +145,10 @@ void toggle(Treap *t) {
     t->lazy_toggle = !t->lazy_toggle;
 }
 
+void reverse(Treap *t) {
+    t->lazy_reverse = !t->lazy_reverse;
+}
+
 int get(Treap* t) {
     propagate(t);
     return t->s.best_run;
@@ -145,6 +158,14 @@ Treap* type1query(Treap*t, int l, int r) {
     auto [i, r1] = split(t, l - 1);
     auto [j, k] = split(r1, r - l + 1);
     toggle(j);
+    Treap* m1 = merge(i, j);
+    return merge(m1, k);
+}
+
+Treap* type2query(Treap* t, int l, int r) {
+    auto [i, r1] = split(t, l - 1);
+    auto [j, k] = split(r1, r - l + 1);
+    reverse(j); 
     Treap* m1 = merge(i, j);
     return merge(m1, k);
 }
@@ -160,43 +181,11 @@ int main() {
         cin >> qt >> a >> b;
         if (qt == 1) {
             t = type1query(t, a, b);
-        } 
+        } else if (qt == 2) {
+            t = type2query(t, a, b);
+        }
         cout << get(t) << endl;
     }
     delete t;
     return 0;
 }
-
-// Generator:
-
-// import random
-// N = 10
-// Q = 10
-// a = "".join(map(str, [random.randint(0, 1) for i in range(N)]))
-// print(N, Q)
-// print(a)
-// for i in range(Q):
-//     L = random.randint(1, N)
-//     R = random.randint(L, N)
-//     print(1, L, R)
-
-// Brute force checker:
-
-// N, Q = map(int, input().split())
-// A = [*map(lambda x : bool(int(x)), input())]
-// for i in range(Q):
-//     T, L, R = map(int, input().split())
-//     L -= 1; R -= 1
-//     for i in range(L, R + 1):
-//         A[i] = not(A[i])
-//     best = 0
-//     run = 1
-//     # print(A)
-//     for i in range(1, N):
-//         if A[i] == A[i - 1]:
-//             run += 1
-//         else:
-//             best = max(best, run)
-//             run = 1
-//     best = max(best, run)
-//     print(best)
