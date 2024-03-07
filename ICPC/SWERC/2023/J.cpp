@@ -8,7 +8,7 @@ int main() {
     cin.tie(0)->sync_with_stdio(0);
     int N, P;
     cin >> N >> P;
-    vector<int> cnts(N, 0);
+    vi cnts(N, 0);
     for (int n = 0; n < N - 1; ++n) {
         int a, b;
         cin >> a >> b;
