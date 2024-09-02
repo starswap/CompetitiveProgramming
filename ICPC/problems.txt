@@ -1,0 +1,220 @@
+UKIEPC15 - Call a Cab - https://open.kattis.com/problems/callacab
+UKIEPC15 - Conversation Log - https://open.kattis.com/problems/conversationlog
+UKIEPC15 - Drink Responsibly - https://open.kattis.com/problems/drinkresponsibly
+UKIEPC15 - Jelly Raid - https://open.kattis.com/problems/jellyraid
+UKIEPC15 - Mountain Biking - https://open.kattis.com/problems/mountainbiking
+UKIEPC15 - Nimionese - https://open.kattis.com/problems/nimionese
+UKIEPC15 - Physiognomy - https://open.kattis.com/problems/physiognomy
+UKIEPC15 - Rainfall - https://open.kattis.com/problems/rainfall
+UKIEPC15 - Sunlight - https://open.kattis.com/problems/sunlight
+UKIEPC15 - Telescope - https://open.kattis.com/problems/telescope
+UKIEPC16 - Taxing Problem - https://www.acmicpc.net/problem/13520
+UKIEPC16 - Build a Boat - https://www.acmicpc.net/problem/13521
+UKIEPC16 - Compiler - https://www.acmicpc.net/problem/13522
+UKIEPC16 - The Darkness - https://www.acmicpc.net/problem/13523
+UKIEPC16 - Elegant Showroom - https://www.acmicpc.net/problem/13524
+UKIEPC16 - Fridge - https://www.acmicpc.net/problem/13525
+UKIEPC16 - Gondolas - https://www.acmicpc.net/problem/13526
+UKIEPC16 - Rhyming Slang - https://www.acmicpc.net/problem/13527
+UKIEPC16 - Grass Seed Inc. - https://www.acmicpc.net/problem/13528
+UKIEPC16 - Jack and the Beanbag - https://www.acmicpc.net/problem/13529
+UKIEPC16 - Compensation - https://www.acmicpc.net/problem/13530
+UKIEPC16 - Secret Santa - https://www.acmicpc.net/problem/13531
+UKIEPC18 - Garden Variety Vampire - https://www.acmicpc.net/problem/17571
+UKIEPC18 - Evenly Divided - https://www.acmicpc.net/problem/17569
+UKIEPC18 - Internet Upload - https://www.acmicpc.net/problem/17573
+UKIEPC19 - Grand Central Station - https://www.acmicpc.net/problem/17800
+UKIEPC19 - Mosaic Mansion - https://www.acmicpc.net/problem/17806
+UKIEPC19 - Knocked Ink - https://www.acmicpc.net/problem/17806
+UKIEPC20 - Aquarium - https://www.acmicpc.net/problem/20329
+UKIEPC20 - Bidirectional Code - https://www.acmicpc.net/problem/20330
+UKIEPC20 - Corrupt Judge - https://www.acmicpc.net/problem/20331
+UKIEPC20 - Divvying Up - https://www.acmicpc.net/problem/20332
+UKIEPC20 - Elevator Pitch - https://www.acmicpc.net/problem/20333
+UKIEPC20 - Family Fares - https://www.acmicpc.net/problem/20334
+UKIEPC20 - Generators - https://www.acmicpc.net/problem/20335
+UKIEPC20 - Haughty Cuisine - https://www.acmicpc.net/problem/20336
+UKIEPC20 - Incomplete Sort - https://www.acmicpc.net/problem/20337
+UKIEPC20 - Jigsaw - https://www.acmicpc.net/problem/20338
+UKIEPC20 - Kleptocrat - https://www.acmicpc.net/problem/20339
+UKIEPC20 - Lost Map - https://www.acmicpc.net/problem/20340
+UKIEPC20 - Moderate Pace - https://www.acmicpc.net/problem/20341
+UKIEPC21 - Arm Coordination - https://www.acmicpc.net/problem/23375
+UKIEPC21 - BnPC - https://www.acmicpc.net/problem/23376
+UKIEPC21 - Cangaroo - https://www.acmicpc.net/problem/23377
+UKIEPC21 - Decelerating Jump - https://www.acmicpc.net/problem/23378
+UKIEPC21 - Eerie Shadows - https://www.acmicpc.net/problem/24734
+UKIEPC21 - Fair Play - https://www.acmicpc.net/problem/23380
+UKIEPC21 - Getting Square - https://www.acmicpc.net/problem/24735
+UKIEPC21 - Hamiltooonian Hike - https://www.acmicpc.net/problem/23382
+UKIEPC21 - Implementation Irregularities - https://www.acmicpc.net/problem/23383
+UKIEPC21 - Jail or Joyride - https://www.acmicpc.net/problem/23384
+UKIEPC21 - Kinking Cables - https://www.acmicpc.net/problem/23385
+UKIEPC21 - Lopsided Lineup - https://www.acmicpc.net/problem/23386
+UKIEPC22 - Alpine Pass - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Boulder Wall - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Colour Wheel - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Duck Crossing - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Eager Packing - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Fungible Growth - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Grapheme Game - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Hare’s Breadth - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Incline Maze - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Joinery - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Keeping Time - https://bit.ly/UKIEPC22Downloads
+UKIEPC22 - Lasso Tool - https://bit.ly/UKIEPC22Downloads
+NWERC22 - Alternating Algorithm - https://open.kattis.com/problems/alternatingalgorithm
+NWERC22 - Bottle Flip - https://open.kattis.com/problems/bottleflip
+NWERC22 - Circular Caramel Cookie - https://open.kattis.com/problems/circularcaramelcookie
+NWERC22 - ETA - https://open.kattis.com/problems/eta
+NWERC22 - Faster Than Light - https://open.kattis.com/problems/fasterthanlight
+NWERC22 - Going in Circles - https://open.kattis.com/problems/goingincircles
+NWERC22 - Interview Question - https://open.kattis.com/problems/interviewquestion
+NWERC22 - Justice Served - https://open.kattis.com/problems/justiceserved
+NWERC22 - Kebab Pizza - https://open.kattis.com/problems/kebabpizza
+NWERC22 - Last Guess - https://open.kattis.com/problems/lastguess
+NWERC21 - Access Denied - https://open.kattis.com/problems/accessdenied
+NWERC21 - Boredom Buster - https://open.kattis.com/problems/boredombuster
+NWERC21 - Cutting Edge - https://open.kattis.com/problems/cuttingedge
+NWERC21 - Dyson Circle - https://open.kattis.com/problems/dysoncircle
+NWERC21 - Exchange Students - https://open.kattis.com/problems/exchangestudents
+NWERC21 - Flatland Olympics - https://open.kattis.com/problems/flatlandolympics
+NWERC21 - Glossary Arrangement - https://open.kattis.com/problems/glossaryarrangement
+NWERC21 - Heating Up - https://open.kattis.com/problems/heatingup
+NWERC21 - IXth Problem - https://open.kattis.com/problems/ixthproblem
+NWERC21 - Jet Set - https://open.kattis.com/problems/jetset
+NWERC21 - Knitpicking - https://open.kattis.com/problems/knitpicking
+NWERC21 - Lucky Shirt - https://open.kattis.com/problems/luckyshirt
+NWERC18 - Access Points - https://open.kattis.com/problems/accesspoints
+NWERC18 - Circuit Board Design - https://open.kattis.com/problems/circuitdesign
+NWERC18 - Date Pickup - https://open.kattis.com/problems/datepickup
+NWERC18 - Equality Control - https://open.kattis.com/problems/equality
+NWERC18 - Fastest Speedrun - https://open.kattis.com/problems/fastestspeedrun
+NWERC18 - Hard Drive - https://open.kattis.com/problems/harddrive
+NWERC18 - Inflation - https://open.kattis.com/problems/inflation
+NWERC18 - Jinxed Betting - https://open.kattis.com/problems/jinxedbetting
+NWERC18 - Kleptography - https://open.kattis.com/problems/kleptography
+NWERC17 - Boss Battle - https://open.kattis.com/problems/bossbattle
+NWERC17 - Connect the Dots - https://open.kattis.com/problems/connectdots
+NWERC17 - English Restaurant - https://open.kattis.com/problems/englishrestaurant
+NWERC17 - Installing Apps - https://open.kattis.com/problems/installingapps
+NWERC17 - Juggling Troupe - https://open.kattis.com/problems/jugglingtroupe
+NWERC16 - British Menu - https://open.kattis.com/problems/britishmenu
+NWERC16 - Careful Ascent - https://open.kattis.com/problems/carefulascent
+NWERC16 - Driving in Optimistan - https://open.kattis.com/problems/optimistan
+NWERC16 - Exam Redistribution - https://open.kattis.com/problems/redistribution
+NWERC16 - Free Weights - https://open.kattis.com/problems/freeweights
+NWERC16 - Gotta Nudge 'Em All - https://open.kattis.com/problems/gottanudge
+NWERC16 - Hamiltonian Hypercube - https://open.kattis.com/problems/hypercube
+NWERC16 - Iron and Coal - https://open.kattis.com/problems/ironcoal
+NWERC16 - Jupiter Orbiter - https://open.kattis.com/problems/jupiter
+NWERC16 - Kiwi Trees - https://open.kattis.com/problems/kiwitrees
+NWERC15P - A Real Challenge - https://open.kattis.com/problems/areal
+NWERC15P - Build Dependencies - https://open.kattis.com/problems/builddeps
+NWERC15P - Calculating Dart Scores - https://open.kattis.com/problems/calculatingdartscores
+NWERC15 - Better Productivity - https://open.kattis.com/problems/productivity
+NWERC15 - Cleaning Pipes - https://open.kattis.com/problems/cleaningpipes
+NWERC15 - Debugging - https://open.kattis.com/problems/debugging
+NWERC15 - Elementary Math - https://open.kattis.com/problems/elementarymath
+NWERC15 - Flight Plan Evaluation - https://open.kattis.com/problems/flightplan
+NWERC15 - Guessing Camels - https://open.kattis.com/problems/camels
+NWERC15 - Hole in One - https://open.kattis.com/problems/holeinone
+NWERC15 - Identifying Map Tiles - https://open.kattis.com/problems/maptiles2
+NWERC15 - Jumbled Communication - https://open.kattis.com/problems/communication
+NWERC15 - Kitchen Combinatorics - https://open.kattis.com/problems/kitchencombinatorics
+NWERC14P - Alphabet Spam - https://open.kattis.com/problems/alphabetspam
+NWERC14P - Booking a Room - https://open.kattis.com/problems/bookingaroom
+NWERC14P - Chasing Subs - https://open.kattis.com/problems/chasingsubs
+NWERC14 - Around the Track - https://open.kattis.com/problems/aroundthetrack
+NWERC14 - Biking Duck - https://open.kattis.com/problems/bikingduck
+NWERC14 - Cent Savings - https://open.kattis.com/problems/centsavings
+NWERC14 - Digi Comp II - https://open.kattis.com/problems/digicomp2
+NWERC14 - Euclidean TSP - https://open.kattis.com/problems/euclideantsp
+NWERC14 - Finding Lines - https://open.kattis.com/problems/findinglines
+NWERC14 - Gathering - https://open.kattis.com/problems/gathering
+NWERC14 - Hyacinth - https://open.kattis.com/problems/hyacinth
+NWERC14 - Indoorienteering - https://open.kattis.com/problems/indoorienteering
+NWERC14 - Judging Troubles - https://open.kattis.com/problems/judging
+NWERC14 - Knapsack Collection - https://open.kattis.com/problems/knapsackcollection
+BAPC21P - Fridge Distraction - https://www.acmicpc.net/problem/23369
+NWERC11 - Movie Collection - https://open.kattis.com/problems/moviecollection
+NWERC11 - Piece It Together - https://open.kattis.com/problems/pieceittogether
+NWERC11 - Please, Go First - https://open.kattis.com/problems/pleasegofirst
+NWERC11 - Train Delays - https://open.kattis.com/problems/traindelays
+NWERC10 - Fair Division - https://open.kattis.com/problems/fairdivision
+NWERC10 - Free Goodies - https://open.kattis.com/problems/freegoodies
+NWERC10 - High Score - https://open.kattis.com/problems/highscore
+NWERC10 - Hill Driving - https://open.kattis.com/problems/hilldriving
+NWERC10 - Risk - https://open.kattis.com/problems/risk
+NWERC10 - Selling Land - https://open.kattis.com/problems/sellingland
+NWERC10 - Stock Prices - https://open.kattis.com/problems/stockprices
+BAPC21 - Evolutionary Excerpt - https://open.kattis.com/problems/evolutionaryexcerpt
+BAPC21 - Gyrating Glyphs - https://open.kattis.com/problems/gyratingglyphs
+BAPC19 - Appeal to the Audience - https://open.kattis.com/problems/appealtotheaudience
+BAPC19 - Breaking Branches - https://open.kattis.com/problems/breakingbranches
+BAPC19 - Conveyor Belts - https://open.kattis.com/problems/conveyorbelts2
+BAPC19 - Deck Randomisation - https://open.kattis.com/problems/deckrandomisation
+BAPC19 - Efficient Exchange - https://open.kattis.com/problems/efficientexchange
+BAPC19 - Find my Family - https://open.kattis.com/problems/findmyfamily
+BAPC19 - Gluttonous Goop - https://open.kattis.com/problems/gluttonousgoop
+BAPC19 - Historic Exhibition - https://open.kattis.com/problems/historicexhibition
+BAPC19 - Inquiry II - https://open.kattis.com/problems/inquiryii
+BAPC19 - Jazz it Up! - https://open.kattis.com/problems/jazzitup
+BAPC19 - Keep Him Inside - https://open.kattis.com/problems/keephiminside
+BAPC19 - Lucky Draw - https://open.kattis.com/problems/luckydraw
+BAPC18 - Birthday Boy - https://open.kattis.com/problems/birthdayboy
+BAPC18 - Cardboard Container - https://open.kattis.com/problems/cardboardcontainer
+BAPC18 - Driver Disagreement - https://open.kattis.com/problems/driverdisagreement
+BAPC18 - Entirely Unsorted Sequences - https://open.kattis.com/problems/entirelyunsortedsequences
+BAPC18 - Financial Planning - https://open.kattis.com/problems/financialplanning
+BAPC18 - Game Night - https://open.kattis.com/problems/gamenight
+BAPC18 - Harry the Hamster - https://open.kattis.com/problems/hamster
+BAPC18 - In Case of an Invasion, Please... - https://open.kattis.com/problems/incaseofinvasion
+BAPC18 - Janitor Troubles - https://open.kattis.com/problems/janitortroubles
+BAPC18 - Kingpin Escape - https://open.kattis.com/problems/kingpinescape
+BAPC17 - Amsterdam Distance - https://open.kattis.com/problems/amsterdamdistance
+BAPC17 - Bearly Made It - https://open.kattis.com/problems/bearlymadeit
+BAPC17 - Collatz Conjecture - https://open.kattis.com/problems/collatzconjecture
+BAPC17 - Detour - https://open.kattis.com/problems/detour
+BAPC17 - Easter Eggs - https://open.kattis.com/problems/eastereggs
+BAPC17 - Falling Apart - https://open.kattis.com/problems/fallingapart
+BAPC17 - Going Dutch - https://open.kattis.com/problems/goingdutch
+BAPC17 - Hoarse Horses - https://open.kattis.com/problems/hoarsehorses
+BAPC17 - Irrational Division - https://open.kattis.com/problems/irrationaldivision
+BAPC17 - Jumping Choreography - https://open.kattis.com/problems/jumpingchoreography
+BAPC17 - King of the Waves - https://open.kattis.com/problems/kingofthewaves
+BAPC17 - Lemonade Trade - https://open.kattis.com/problems/lemonadetrade
+BAPC17 - Manhattan Mornings - https://open.kattis.com/problems/manhattanmornings
+NCPC22 - Berry Battle - https://open.kattis.com/problems/berrybattle
+NCPC22 - Coffee Cup Combo - https://open.kattis.com/problems/coffeecupcombo
+NCPC22 - Enigmatic Enumeration - https://open.kattis.com/problems/enigmaticenumeration
+NCPC22 - Highest Hill - https://open.kattis.com/problems/highesthill
+NCPC22 - Icy Itinerary - https://open.kattis.com/problems/icyitinerary
+NCPC22 - Junk Journey - https://open.kattis.com/problems/junkjourney
+NCPC22 - Keyboard Queries - https://open.kattis.com/problems/keyboardqueries
+NCPC21 - Antenna Analysis - https://open.kattis.com/problems/antennaanalysis
+NCPC21 - Breaking Bars - https://open.kattis.com/problems/breakingbars
+NCPC21 - Customs Controls - https://open.kattis.com/problems/customscontrols
+NCPC21 - Deceptive Directions - https://open.kattis.com/problems/deceptivedirections
+NCPC21 - Eavesdropper Evasion - https://open.kattis.com/problems/eavesdropperevasion
+NCPC21 - Fortune From Folly - https://open.kattis.com/problems/fortunefromfolly
+NCPC21 - Grazed Grains - https://open.kattis.com/problems/grazedgrains
+NCPC21 - Hiring Help - https://open.kattis.com/problems/hiringhelp
+NCPC21 - Intact Intervals - https://open.kattis.com/problems/intactintervals
+NCPC21 - Joint Jog Jam - https://open.kattis.com/problems/jointjogjam
+NCPC21 - Knot Knowledge - https://open.kattis.com/problems/knotknowledge
+NCPC21 - Locust Locus - https://open.kattis.com/problems/locustlocus
+NCPC21 - Marvelous Marathon - https://open.kattis.com/problems/marvelousmarathon
+NCPC20 - Array of Discord - https://open.kattis.com/problems/arrayofdiscord
+NCPC20 - Big Brother - https://open.kattis.com/problems/bigbrother
+NCPC20 - Coin Stacks - https://open.kattis.com/problems/coinstacks
+NCPC20 - Dams in Distress - https://open.kattis.com/problems/damsindistress
+NCPC20 - Exhaustive Experiment - https://open.kattis.com/problems/exhaustiveexperiment
+NCPC20 - Film Critics - https://open.kattis.com/problems/filmcritics
+NCPC20 - Gig Combinatorics - https://open.kattis.com/problems/gigcombinatorics
+NCPC20 - Hiring and Firing - https://open.kattis.com/problems/hiringfiring
+NCPC20 - Infection Estimation - https://open.kattis.com/problems/infectionestimation
+NCPC20 - Joining Flows - https://open.kattis.com/problems/joiningflows
+NCPC20 - Keep Calm And Carry Off - https://open.kattis.com/problems/keepcalmandcarryoff
+NCPC20 - Language Survey - https://open.kattis.com/problems/languagesurvey
+NCPC20 - Methodic Multiplication - https://open.kattis.com/problems/methodicmultiplication

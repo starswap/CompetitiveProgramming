@@ -1,7 +1,7 @@
 import random
-T = 100
-MAX_N = 10
-MAX_A = 10
+T = 10
+MAX_N = 100000
+MAX_A = 100000
 with open("input.txt","w") as f:
     f.write(f"{T}\n")
     for t in range(T):

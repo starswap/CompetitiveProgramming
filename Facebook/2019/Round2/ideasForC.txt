@@ -1,0 +1,87 @@
+Sort columns?
+Want to join up separate blocks.
+
+We should be able to sort the potential skip places by number of skips that need to be taken (total number of others on top), then take as many as we can from the beginning.
+
+
+
+Greedily in pairs - removing most As+Bs ? - NOT optimal
+- Can we do this? Do we need to do this? Will it still be optimal when skips are involved?
+
+Checkerboard is worst case
+ABABABABAB
+BABABABABA
+|_____==> therefore you can do it in at most 300 removals. -> Can we exploit this?
+
+order of the columns does not matter
+
+
+Actually only 2 choices - remove all As or remove all Bs first
+
+add 0s at beginning and end as sentinelsS?
+
+As firsT:
+    11
+    15
+    12
+    21
+    10
+    10
+    9
+    6
+    6
+
+
+Bs first:
+    #7
+    #22
+    #12
+    #15
+    #14
+    #12
+    #8
+    #7   
+    #2
+    #1
+
+
+
+A skip first up is never going to help
+
+
+
+
+Two possible benefits to skipping
+ - join two together
+ - skip a whole set
+
+
+If you have joined two together, skipping one of these won't save you any more.
+If you have skipped one in order to get a join, to skip the whole set the skipped one is in costs one less.
+
+Don;t want to count joined ones and removals of the same piece.
+**Joining or removal - depends on how many you need to skip to get to the set and how many there are.
+
+
+Using queues - find out for A and B the number of chunks you do it in.
+Sort those chunks
+for l in L:
+    Prefixes - summing up to l (with BSTA if you wish)
+
+
+
+2 1
+2 3 1
+4 3 2 
+3 5 2 2 2 4
+7 9 1 5 8 8 4 8 7 9 6 6 6 5 
+
+
+
+if all zero skip deltas - just take the size of the 
+
+
+
+Initially onto skip deltas
+
+can bsta on the sorted list of skip deltas
