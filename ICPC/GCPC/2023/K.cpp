@@ -14,7 +14,7 @@ void prep_facts() {
 int main() {
     prep_facts();
 
-    int N, H;
+    int N, H;   
     cin >> N >> H;
     vector<int> k(H, 0);
 
