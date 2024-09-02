@@ -19,7 +19,7 @@ const flight_idx ANY = -1;
 int N, M;
 airport_idx dest;
 
-map<airport_code, point_in_time> location_to_idx;
+map<airport_code, airport_idx> location_to_idx;
 map<airport_idx, map<point_in_time, vector<int>>> flights_at_loc_time;
 vector<flight> flights;
 map<tuple<point_in_time, airport_idx, flight_idx>, point_in_time> DP;
