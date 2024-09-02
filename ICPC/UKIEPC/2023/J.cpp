@@ -13,9 +13,7 @@ struct flight {
     airport_idx airport_end;
 };
 
-const int MAX_N = 1'000'005;
 const int INF = 1'000'000'000;
-const int UNK = 1'000'000'001;
 const flight_idx ANY = -1;
 
 int N, M;
