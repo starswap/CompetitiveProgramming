@@ -36,7 +36,7 @@ int main() {
     }
 
     int lmask = 0, rmask = 0;
-    int E = 0; // Maintain current evaluation of the spell
+    int E = 0; // current evaluation of the spell
 
     /* Gray code subset enum brute force on LHS */
     for (int i = 1; i <= (1 << Nl); ++i) {
@@ -80,7 +80,6 @@ int main() {
             JR[CURR][lmask] = (rmask & LSOne(j)) ? (JR[CURR][lmask] - JR[d][lmask])
                                                  : (JR[CURR][lmask] + JR[d][lmask]);
         }
-            
 
         /* Update current subset */ 
         if (rmask & LSOne(j)) { // in, remove
