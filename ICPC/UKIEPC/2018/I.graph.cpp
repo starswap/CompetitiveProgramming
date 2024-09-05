@@ -81,7 +81,6 @@ int main() {
                 int this_ans = start_time + ceil(((double) (D - scores[p2])) / ((double) W[p.second]));
                 ans = min(ans, this_ans);
             }
-
         }
     }
 
