@@ -2,7 +2,13 @@
 using namespace std;
 
 // Using the graph method as suggested in the slides.
-
+// This is similar to my original method but different because:
+//   - This computes the largest amount that can be uploaded by a given time/node combo rather than largest amount by the end time
+//   - The DP is computed bottom up
+//   - You get away with the cycle problem when it takes 0 seconds to go between sites because there's never a case when you want to travel between two sites at opening or closing if we assume that the AM has no weirdness where it makes sense to go via somewhere instead of direct. This is the case for the provided data but could be ensured anyway by APSP if necessary.
+// Nicer because:
+//    - No need for BSTA since the time is calculated "as we go" on the basis of "upload the most by this time/location pair" must yield the quickest time when all times and locations considered.
+//    - Avoids annoyances due to cycle problem, and need for all the set iterator stuff, by treating moving separately from staying somewhere and not needing to worry about 0 length moves.
 // Note:
 // Constraints for this problem are wrong in the statement:
 //  Actual constraints should be:
