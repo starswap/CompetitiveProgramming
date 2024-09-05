@@ -104,14 +104,12 @@ int main() {
     while (hi - lo > 1) {
         int mi = (hi + lo) / 2;
         fill(&DP[0][0], &DP[0][0] + sizeof(DP)/sizeof(DP[0][0]), UNK) ;
-        if (doDP(N, 0, mi) >= D) {// yes we can 
+        if (doDP(N, 0, mi) >= D) // yes we can 
             hi = mi;
-        }
         else
             lo = mi;
     }
-    if (hi == MAX_T + 1) { // Robin and Jim do this but it's not actually necessary
-                           // as no-one checks it in the test cases.
+    if (hi == MAX_T + 1) { // Robin and Jim do this but it's not actually necessary as no-one checks it in the test cases.
         cout << "impossible" << endl;
     } else {
         cout << hi << endl;
