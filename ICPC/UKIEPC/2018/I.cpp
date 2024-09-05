@@ -6,7 +6,7 @@ using namespace std;
 //  Actual constraints should be:
 //      0 <= o <= c < 1000000
 //      0 <= w < 100000
-//      0 <= d_i < 200000)
+//      0 <= d_i < 200000
 
 const int MAX_N = 100;
 const int INF = 1000000007;
@@ -48,7 +48,7 @@ int doDP(int c, int t, int max_t) {
             DP[c][t] = doDP(c, t + 1, max_t) + uploaded_here;
 
             auto it = special[d].upper_bound(time + AM[c][d]);
-            if (!(it == special[d].end())) { // new one just opened; can we make it?
+            if (!(it == special[d].end())) { // new one just opened; do we want to go there?
                 const auto &[next_time, p] = *it;
                 const auto &[_, special_idx] = p;
                 int uploaded = max(0, (min(next_time, max_t) - O[d])) * W[d];
