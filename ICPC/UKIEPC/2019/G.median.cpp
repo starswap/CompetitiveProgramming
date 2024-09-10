@@ -23,6 +23,9 @@ pair<int, int> dfs(int u, int p, int h) {
     return make_pair(max_d, furth);
 }
 
+/* Can do this a little bit more easily by saving
+   parents and then constructing a longest path as 
+   a vector and then just taking the middle of it. */
 int find_or_make_middle(int u, int p, int u2, int d) {
     if (u == u2) return -d;
 
