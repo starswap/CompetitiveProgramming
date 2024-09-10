@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/* Robin calls the centre of the diameter the centroid of the tree in the video
+   solutions and on the slides. This is not the correct term for such a node. */
+
 const int INF = 1000000001;
 int N;
 vector<vector<int>> AL;
@@ -20,12 +23,12 @@ pair<int, int> dfs(int u, int p, int h) {
     return make_pair(max_d, furth);
 }
 
-int find_or_make_centroid(int u, int p, int u2, int d) {
+int find_or_make_middle(int u, int p, int u2, int d) {
     if (u == u2) return -d;
 
     for (int v : AL[u]) {
         if (v == p) continue;
-        int res = find_or_make_centroid(v, u, u2, d + 1);
+        int res = find_or_make_middle(v, u, u2, d + 1);
         if (res == INF) continue;
         if (res >= 0) return res;
         else if (res < 0) {
@@ -49,10 +52,10 @@ int find_or_make_centroid(int u, int p, int u2, int d) {
     return INF;
 }
 
-int find_centroid() {
+int find_middle() {
     auto [d1, u1] = dfs(0, -1, 0);
     auto [d2, u2] = dfs(u1, -1, 0);
-    return find_or_make_centroid(u1, -1, u2, 0);
+    return find_or_make_middle(u1, -1, u2, 0);
 }
 
 map<vector<int>, int> children_to_label;
@@ -103,12 +106,12 @@ int main() {
         AL[v].push_back(u);
     }
 
-    int c = find_centroid();
-    bool new_centroid = (old_n != N);
+    int c = find_middle();
+    bool new_middle = (old_n != N);
     node_label.resize(N);
     children_to_label[vector<int>{}] = 0;
     make_labels(c, -1);
 
-    cout << calculate_answer(c, -1) - (new_centroid ? 1 : 0) << endl;
+    cout << calculate_answer(c, -1) - (new_middle ? 1 : 0) << endl;
     return 0;
 }
