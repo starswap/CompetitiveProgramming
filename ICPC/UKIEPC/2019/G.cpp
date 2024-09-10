@@ -1,5 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+using ll = long long;
+using ver = int;
+
+template <typename T>
+T modpow(T base, T exp, T modulus) {
+    base %= modulus;
+    T result = 1;
+    while (exp > 0) {
+        if (exp & 1) result = (result * base) % modulus;
+        base = (base * base) % modulus;
+        exp >>= 1;
+    }
+    return result;
+}
+
 /* This hashing scheme works nicely because it allows us to easily "add and subtract" subtrees
    but it seems odd to me that it works because it's not true in general that
    b = c (mod m) => a^b = a^c (mod m) and that's the usual way to argue for 
@@ -35,22 +51,6 @@ using namespace std;
 
    a^(hX + hY + hZ) % m whereas this method generates a^((hx + hY + hZ) % m) % m and these are not the same in general. 
 */
-
-using ll = long long;
-using ver = int;
-
-template <typename T>
-T modpow(T base, T exp, T modulus) {
-    base %= modulus;
-    T result = 1;
-    while (exp > 0) {
-        if (exp & 1) result = (result * base) % modulus;
-        base = (base * base) % modulus;
-        exp >>= 1;
-    }
-    return result;
-}
-
 template<ll a, ll mod>
 struct TreeHash {
     public:
@@ -92,19 +92,23 @@ struct TreeHashCollection {
         TreeHashCollection(TH1 h1, TH2 h2, TH3 h3):h1(h1), h2(h2), h3(h3) {}
 };
 
-unordered_map<ll, TreeHashCollection> hash_cache; // hashed_pair to 
-const ver ALL = -1; // Used to represent the absence of an "excluding subtree" in the hash cache; pairs containing ALL as the second vertex point to a hash which is the whole tree rooted at u.  
+unordered_map<ll, TreeHashCollection> hash_cache_u_exc_v; // hashed_pair(tree rooted at u, excluding subtree rooted at vf) to tree hash
+unordered_map<ver, TreeHashCollection> hash_cache; // tree hash of tree when rooted at u
 vector<vector<ver>> AL;
 
+/* Our own hash to allow us to use unordered_map of pairs, optimisation */
 ll hash_pair(ver u, ver n) {
     return (ll) u * (1000000LL) + (ll) n;
 }
 
-// Compute hash for the subtree rooted at node u
-// excluding the subtree rooted at node n.
+/* Compute hash for the subtree rooted at node u
+   excluding the subtree rooted at node n. This
+   has the side effect of causing all of the hash_cache_u_exc_v
+   when the tree is traveresed from node x to be computed,
+   if x is the u value from the original call. */
 TreeHashCollection doPartialHash(ver u, ver n) {
     auto pair = hash_pair(u, n);
-    if (hash_cache.count(pair)) return hash_cache[pair];
+    if (hash_cache_u_exc_v.count(pair)) return hash_cache_u_exc_v[pair];
     else {
         TreeHashCollection h = TreeHashCollection::singleton();
         for (ver v : AL[u]) {
@@ -112,26 +116,30 @@ TreeHashCollection doPartialHash(ver u, ver n) {
                 h = h.addSubtree(doPartialHash(v, u));
             }
         }
-        hash_cache[pair] = h;
-        return hash_cache[pair];
+        hash_cache_u_exc_v[pair] = h;
+        return hash_cache_u_exc_v[pair];
     }
 }
 
-// Compute tree hash for rooting the tree at node u
+/* Compute tree hash for rooting the tree at node u */
 TreeHashCollection hashTree(ver u) {
-    if (hash_cache.count(hash_pair(u, ALL))) return hash_cache[hash_pair(u, ALL)];
+    if (hash_cache.count(u)) return hash_cache[u];
     if (AL[u].size() == 0) return TreeHashCollection::singleton();
     ver v = AL[u][0];
     TreeHashCollection h = doPartialHash(u, v).addSubtree(doPartialHash(v, u));
-    hash_cache[hash_pair(u, ALL)] = h;
+    hash_cache[u] = h;
     return h;
 }
 
-// Assume that we already calculated all hashes when we root the tree at node p
-// We now want to calculate the relevant hash for when we root the tree at u.
+/* Precondition: Assume that we already calculated all hashes when 
+   we root the tree at node p, i.e. hash_cache[p] and all
+   hash_cache_u_exc_v[u, p] for some u.
+   
+   Result: hash_cache[u] gets computed*/
 void allHashesDfs(ver u, ver p) {
-    TreeHashCollection new_child = hash_cache[hash_pair(p, ALL)].removeSubtree(hash_cache[hash_pair(u, p)]);
-    hash_cache[hash_pair(u, ALL)] = hash_cache[hash_pair(u, p)].addSubtree(new_child);
+    assert (hash_cache_u_exc_v.count(hash_pair(u, p)));
+    TreeHashCollection new_child = hash_cache[p].removeSubtree(hash_cache_u_exc_v[hash_pair(u, p)]);
+    hash_cache[u] = hash_cache_u_exc_v[hash_pair(u, p)].addSubtree(new_child);
 
     for (ver v : AL[u]) {
         if (v == p) continue;
