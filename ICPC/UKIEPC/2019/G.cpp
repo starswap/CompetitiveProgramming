@@ -1,11 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
+/* This hashing scheme works nicely because it allows us to easily "add and subtract" subtrees
+   but it seems odd to me that it works because it's not true in general that
+   b = c (mod m) => a^b = a^c (mod m) and that's the usual way to argue for 
+   correctness of hashes involving mod.
+
+   But I think you can argue this makes sense by induction. What we are trying to convince
+   ourselves of is the idea that for a given tree structure, no matter how you build it
+   using the allowed operations, you always get the same hash. Equally 'if 2 trees are of the same composition,
+   they have the same hash'. This is trivially true for a single node, 
+   then for a tree of the form:
+   O----
+   | | |
+   X Y Z
+   you can assume the result for trees X, Y, and Z, and so assume you have some h(X), h(Y), h(Z) 
+   and then claim that the only operations allowed in building tree O are add X (i.e. * a^(h(X))),
+   add Y, add Z, subtract X, subtract Y, subtract Z, or add + subtract some other random
+   tree. No matter how many times you do this you will get the right result for O because it's clear that
+   a ^ p * (a_inv)^p = 1 (mod m) is always true, and you have commutativity of * etc.
+
+  The only other thing to prove then is that you don't get systematic hash collisions regardless 
+  of the a that you use (because if that's true you can just combine as many hashes as it takes to avoid
+  hash collisions - you can work out how many are needed if necessary). I think you can convince yourself
+  of this by looking at the structure of the hash terms and how they relate to the tree structure.
+  You would need two hash terms of different structures to have the same value which isn't going to be
+  true for arbitrary a.
+
+  Previously I was constructing 
+   O----
+   | | |
+   X Y Z
+   by doing (h(X) + h(Y) + h(Z)) % m and then raising to the h(O). In combination with adding and subtracting this
+   is no longer correct because by the current adding and subtracting you can generate
+
+   a^(hX + hY + hZ) % m whereas this method generates a^((hx + hY + hZ) % m) % m and these are not the same in general. 
+*/
 
 using ll = long long;
 using ver = int;
-
-const ver ALL = -1;
-vector<vector<ver>> AL;
 
 template <typename T>
 T modpow(T base, T exp, T modulus) {
@@ -22,89 +54,89 @@ T modpow(T base, T exp, T modulus) {
 template<ll a, ll mod>
 struct TreeHash {
     public:
-        static TreeHash empty() {return TreeHash(0);} // singleton is 1
-        static TreeHash singleton() {return TreeHash(0).level();}
-        friend TreeHash operator +(const TreeHash& t, const TreeHash& b) {
-            return TreeHash((t.value + b.value) % mod);
+        static TreeHash singleton() {return TreeHash(a);}
+        
+        friend bool operator <(const TreeHash& t, const TreeHash& b) { return t.value < b.value; }
+        friend bool operator ==(const TreeHash& t, const TreeHash& b) { return t.value == b.value; }
+        friend ostream& operator << (ostream &o, const TreeHash& t) { o << t.value; return o; }
+
+        TreeHash addSubtree(const TreeHash& h) { return TreeHash((value * modpow(a, h.value, mod)) % mod); }
+        TreeHash removeSubtree(const TreeHash& h) {
+            ll a_inv = modpow(a, mod - 2, mod); // Fermat's Little Theorem; prime number mod
+            return TreeHash((value * modpow(a_inv, h.value, mod)) % mod);
         }
-        friend ostream& operator << (ostream &o, const TreeHash& t) {
-            o << t.value;
-            return o;
-        }
-        TreeHash level() {
-            return TreeHash(modpow(a, value, mod));
-        }
-        TreeHash plusUnder(const TreeHash& h) {
-            return TreeHash((value * modpow(a, h.value, mod)) % mod);
-        }
-        TreeHash operator +=(const TreeHash& other) {
-            value = (other.value + value) % mod;
-            return *this;
-        }
-        TreeHash():value(0) {}; 
-    ll value;
+        TreeHash():value(0) {};
     private:
         TreeHash(ll v):value(v) {}
+        ll value;
 };
 
 struct TreeHashCollection {
     public:
-        using TH1 = TreeHash<5, 1000000007>;
-        using TH2 = TreeHash<31, 16431563>;
-        using TH3 = TreeHash<19, 11111117>;
+        using TH1 = TreeHash<11, 1000000007>;
+        using TH2 = TreeHash<61, 16431563>;
+        using TH3 = TreeHash<97, 999999937>;
+
         TH1 h1;
         TH2 h2;
         TH3 h3;
 
-        static TreeHashCollection empty() {return TreeHashCollection(TH1::empty(), TH2::empty(), TH3::empty());}
         static TreeHashCollection singleton() {return TreeHashCollection(TH1::singleton(), TH2::singleton(), TH3::singleton());}
-        friend TreeHashCollection operator +(const TreeHashCollection& t, const TreeHashCollection& b) { return TreeHashCollection(t.h1 + b.h1, t.h2 + b.h2, t.h3 + b.h3); }
-        friend ostream& operator << (ostream& o, const TreeHashCollection& t) {
-            o << "TreeHashCollection(" << t.h1 << ", " << t.h2 << ", " << t.h3 << ")";
-            return o;
-        }
-        friend bool operator <(const TreeHashCollection& t, const TreeHashCollection& t2) {
-            return (t.h1.value < t2.h1.value) || (t.h1.value == t2.h1.value && t.h2.value < t2.h2.value) || (t.h1.value == t2.h1.value && t.h2.value == t2.h2.value && t.h3.value < t2.h3.value);
-        }
+        friend ostream& operator << (ostream& o, const TreeHashCollection& t) {o << "TreeHashCollection(" << t.h1 << ", " << t.h2 << ", " << t.h3 << ")"; return o; }
+        friend bool operator <(const TreeHashCollection& t, const TreeHashCollection& t2) { return (t.h1 < t2.h1) || (t.h1 == t2.h1 && t.h2 < t2.h2) || (t.h1 == t2.h1 && t.h2 == t2.h2 && t.h3 < t2.h3); }
   
-        TreeHashCollection level() { return TreeHashCollection(h1.level(), h2.level(), h3.level()); }
-        TreeHashCollection plusUnder(const TreeHashCollection& h) { return TreeHashCollection(h1.plusUnder(h.h1), h2.plusUnder(h.h2), h3.plusUnder(h.h3)); }
-        TreeHashCollection operator +=(const TreeHashCollection& other) {
-            h1 += other.h1;
-            h2 += other.h2;
-            h3 += other.h3;
-            return *this;
-        }
-        TreeHashCollection():h1(TH1::empty()), h2(TH2::empty()), h3(TH3::empty()) {}
+        TreeHashCollection addSubtree(const TreeHashCollection& h) { return TreeHashCollection(h1.addSubtree(h.h1), h2.addSubtree(h.h2), h3.addSubtree(h.h3)); }
+        TreeHashCollection removeSubtree(const TreeHashCollection& h) { return TreeHashCollection(h1.removeSubtree(h.h1), h2.removeSubtree(h.h2), h3.removeSubtree(h.h3)); }
+        TreeHashCollection():h1(TH1::singleton()), h2(TH2::singleton()), h3(TH3::singleton()) {}
     private:
         TreeHashCollection(TH1 h1, TH2 h2, TH3 h3):h1(h1), h2(h2), h3(h3) {}
 };
 
+unordered_map<ll, TreeHashCollection> hash_cache; // hashed_pair to 
+const ver ALL = -1; // Used to represent the absence of an "excluding subtree" in the hash cache; pairs containing ALL as the second vertex point to a hash which is the whole tree rooted at u.  
+vector<vector<ver>> AL;
+
 ll hash_pair(ver u, ver n) {
     return (ll) u * (1000000LL) + (ll) n;
 }
-unordered_map<ll, TreeHashCollection> hash_cache;
 
+// Compute hash for the subtree rooted at node u
+// excluding the subtree rooted at node n.
 TreeHashCollection doPartialHash(ver u, ver n) {
     auto pair = hash_pair(u, n);
     if (hash_cache.count(pair)) return hash_cache[pair];
     else {
-        TreeHashCollection h = TreeHashCollection::empty();
+        TreeHashCollection h = TreeHashCollection::singleton();
         for (ver v : AL[u]) {
             if (v != n) {
-                h = h + doPartialHash(v, u);
+                h = h.addSubtree(doPartialHash(v, u));
             }
         }
-        hash_cache[pair] = h.level(); 
+        hash_cache[pair] = h;
         return hash_cache[pair];
     }
 }
 
+// Compute tree hash for rooting the tree at node u
 TreeHashCollection hashTree(ver u) {
+    if (hash_cache.count(hash_pair(u, ALL))) return hash_cache[hash_pair(u, ALL)];
     if (AL[u].size() == 0) return TreeHashCollection::singleton();
     ver v = AL[u][0];
-    TreeHashCollection h = doPartialHash(u, v).plusUnder(doPartialHash(v, u));
+    TreeHashCollection h = doPartialHash(u, v).addSubtree(doPartialHash(v, u));
+    hash_cache[hash_pair(u, ALL)] = h;
     return h;
+}
+
+// Assume that we already calculated all hashes when we root the tree at node p
+// We now want to calculate the relevant hash for when we root the tree at u.
+void allHashesDfs(ver u, ver p) {
+    TreeHashCollection new_child = hash_cache[hash_pair(p, ALL)].removeSubtree(hash_cache[hash_pair(u, p)]);
+    hash_cache[hash_pair(u, ALL)] = hash_cache[hash_pair(u, p)].addSubtree(new_child);
+
+    for (ver v : AL[u]) {
+        if (v == p) continue;
+        allHashesDfs(v, u);
+    }
 }
 
 int main() {
@@ -122,6 +154,11 @@ int main() {
     }
     
     set<TreeHashCollection> signs;
+
+    hashTree(0);
+    for (ver v : AL[0]) {
+        allHashesDfs(v, 0);
+    }
 
     for (int n = 0; n < N; ++n) {
         signs.insert(hashTree(n));
