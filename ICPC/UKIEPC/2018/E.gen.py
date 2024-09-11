@@ -13,7 +13,17 @@ answer = {x: y for (x, y) in pairs}
 for i in range(M):
     print(*answer[i + 1])
 
+# Other cases you can consider
 
+# Bad case with high degree node at the end
+# import random
+# M = 100000
+
+# print(M)
+# for i in range(M):
+#     print(f"{i % 2} 99999")
+
+# Lots of middle degree nodes
 # import random
 # M = 100000
 
@@ -21,9 +31,3 @@ for i in range(M):
 # for i in range(M):
 #     print(f"{i % 2} {(i // 100 + 1) * 100}")
 
-# import random
-# M = 100000
-
-# print(M)
-# for i in range(M):
-#     print(f"{i % 2} 99999")
