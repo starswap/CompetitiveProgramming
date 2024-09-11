@@ -27,7 +27,7 @@ int main() {
     vector<int> ans;
     for (int k = 0; k < MAX_ITER; ++k) {
         ans.clear();
-        random_shuffle(shorts.begin(), shorts.end());
+        random_shuffle(shorts.begin(), shorts.end()); // As Robin points out you can also sort by degree here
         for (int i = 0; i < M / 2; ++i) {
             int s = shorts[i], j, t, iters = 0;
             do {
